@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: arm_only_description
+    relative_path: urdf/arm_only_clean_moveit.urdf.xacro
+  srdf:
+    relative_path: config/arm_only_clean.srdf
+  package_settings:
+    author_name: hgui
+    author_email: jhj020129@kookmin.ac.kr
+    generated_timestamp: 1780128722
