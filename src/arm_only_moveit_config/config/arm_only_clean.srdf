@@ -36,4 +36,7 @@
     <disable_collisions link1="LINK4" link2="LINK5" reason="Adjacent"/>
     <disable_collisions link1="LINK4" link2="LINK6" reason="Never"/>
     <disable_collisions link1="LINK5" link2="LINK6" reason="Adjacent"/>
+    <!-- Relaxed collision pairs for more stable MoveIt planning -->
+    <disable_collisions link1="LINK2" link2="LINK6" reason="RelaxedForPlanning"/>
+    <disable_collisions link1="LINK3" link2="LINK5" reason="RelaxedForPlanning"/>
 </robot>
