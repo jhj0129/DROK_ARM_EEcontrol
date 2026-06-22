@@ -1,10 +1,25 @@
 moveit_setup_assistant_config:
   urdf:
     package: arm_only_description
-    relative_path: urdf/arm_only_clean_moveit.urdf.xacro
+    relative_path: urdf/arm_only_gripper_moveit.urdf.xacro
   srdf:
-    relative_path: config/arm_only_clean.srdf
+    relative_path: config/arm_only_gripper.srdf
   package_settings:
-    author_name: hgui
+    author_name: H_GUi
     author_email: jhj020129@kookmin.ac.kr
-    generated_timestamp: 1780128722
+    generated_timestamp: 1781848697
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
