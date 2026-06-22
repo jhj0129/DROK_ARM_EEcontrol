@@ -1,40 +1,70 @@
 import os
+import re
+from xml.dom import Node as XMLNode
+
+import xacro
 
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import Command, PathJoinSubstitution
 
 from launch_ros.actions import Node, SetParameter
-from launch_ros.substitutions import FindPackageShare
-from launch_ros.parameter_descriptions import ParameterValue
-
 from ament_index_python.packages import get_package_share_directory
+
+
+def remove_xml_comments(node):
+    for child in list(node.childNodes):
+        if child.nodeType == XMLNode.COMMENT_NODE:
+            node.removeChild(child)
+        else:
+            remove_xml_comments(child)
+
+
+def make_clean_robot_description(xacro_file):
+    doc = xacro.process_file(
+        xacro_file,
+        mappings={
+            "use_embedded_ros2_control": "true",
+        },
+    )
+
+    # 핵심:
+    # gazebo_ros2_control이 robot_description 전체 XML을 ROS parameter override로 넘길 때
+    # <?xml ...?> / <!-- ... --> 주석이 있으면 parser error가 날 수 있어서 제거한다.
+    remove_xml_comments(doc)
+
+    xml = doc.toxml()
+
+    # XML declaration 제거
+    xml = re.sub(r'<\?xml[^>]*\?>', '', xml).strip()
+
+    # 혹시 남은 comment 제거
+    xml = re.sub(r'<!--.*?-->', '', xml, flags=re.S).strip()
+
+    return xml
 
 
 def generate_launch_description():
     gazebo_ros_share = get_package_share_directory("gazebo_ros")
     moveit_config_share = get_package_share_directory("arm_only_moveit_config")
+    desc_share = get_package_share_directory("arm_only_description")
 
-    xacro_file = PathJoinSubstitution([
-        FindPackageShare("arm_only_description"),
+    xacro_file = os.path.join(
+        desc_share,
         "urdf",
-        "arm_only_clean_moveit.urdf.xacro",
-    ])
+        "arm_only_gripper_moveit.urdf.xacro",
+    )
 
-    # GitHub에서 받은 다른 컴퓨터에서도 동작하도록
-    # Use the world file installed inside arm_only_description package.
-    world_file = PathJoinSubstitution([
-        FindPackageShare("arm_only_description"),
+    world_file = os.path.join(
+        desc_share,
         "worlds",
         "arm_only_ros2_control.world",
-    ])
+    )
+
+    robot_description_xml = make_clean_robot_description(xacro_file)
 
     robot_description = {
-        "robot_description": ParameterValue(
-            Command(["xacro ", xacro_file]),
-            value_type=str
-        )
+        "robot_description": robot_description_xml
     }
 
     gazebo = IncludeLaunchDescription(
@@ -47,7 +77,6 @@ def generate_launch_description():
         }.items(),
     )
 
-    # robot_state_publisher는 Gazebo /clock 기준을 써야 함
     robot_state_publisher = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -64,7 +93,7 @@ def generate_launch_description():
         executable="spawn_entity.py",
         output="screen",
         arguments=[
-            "-entity", "arm_only_clean",
+            "-entity", "drok_arm_gripper",
             "-topic", "robot_description",
             "-x", "0",
             "-y", "0",
@@ -75,18 +104,6 @@ def generate_launch_description():
     static_virtual_joint_tf = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(moveit_config_share, "launch", "static_virtual_joint_tfs.launch.py")
-        )
-    )
-
-    move_group = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(moveit_config_share, "launch", "move_group.launch.py")
-        )
-    )
-
-    moveit_rviz = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(moveit_config_share, "launch", "moveit_rviz.launch.py")
         )
     )
 
@@ -112,8 +129,47 @@ def generate_launch_description():
         ],
     )
 
+    gripper_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        output="screen",
+        arguments=[
+            "gripper_controller",
+            "--controller-manager",
+            "/controller_manager",
+        ],
+    )
+
+
+    plate_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        output="screen",
+        arguments=[
+            "plate_controller",
+            "--controller-manager",
+            "/controller_manager",
+        ],
+    )
+    gripper_plate_mimic_node = Node(
+        package="arm_only_moveit_config",
+        executable="gripper_plate_mimic_node.py",
+        output="screen",
+    )
+
+    move_group = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(moveit_config_share, "launch", "move_group.launch.py")
+        )
+    )
+
+    moveit_rviz = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(moveit_config_share, "launch", "moveit_rviz.launch.py")
+        )
+    )
+
     return LaunchDescription([
-        # Gazebo는 먼저 실행. 여기에 전역 use_sim_time을 먹이면 /clock이 꼬일 수 있음.
         gazebo,
         robot_state_publisher,
         spawn_robot,
@@ -130,7 +186,18 @@ def generate_launch_description():
             arm_controller_spawner
         ]),
 
-        # 여기부터 MoveIt 계열 노드에만 use_sim_time 적용
+        TimerAction(period=8.0, actions=[
+            gripper_controller_spawner
+        ]),
+
+        TimerAction(period=8.5, actions=[
+            plate_controller_spawner
+        ]),
+
+        TimerAction(period=10.0, actions=[
+            gripper_plate_mimic_node
+        ]),
+
         TimerAction(period=9.0, actions=[
             SetParameter(name="use_sim_time", value=True),
             move_group

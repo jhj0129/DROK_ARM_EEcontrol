@@ -3,6 +3,7 @@
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot name="arm_only_gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:arg name="use_embedded_ros2_control" default="true"/>
   <link
     name="ARM_BASE_LINK">
     <inertial>
@@ -174,10 +175,8 @@
       link="LINK1" />
     <child
       link="LINK2" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-3.141593" upper="3.141593" effort="35" velocity="1.2" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-3.141593" upper="0.10472" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -264,10 +263,8 @@
       link="LINK2" />
     <child
       link="LINK3" />
-    <axis
-      xyz="0 -1 0" />
-    <limit
-      lower="-3.141593" upper="3.141593" effort="35" velocity="1.2" />
+    <axis xyz="0 1 0" />
+    <limit lower="-3.228859" upper="-0.087266" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -554,8 +551,8 @@
     <axis
       xyz="-1 0 0" />
     <limit
-      lower="0.0" upper="2.10" effort="10" velocity="2.0" />
-      <dynamics damping="2" friction="0.3" />
+      lower="0.0" upper="4.2" effort="50" velocity="8.0" />
+      <dynamics damping="4.0" friction="1.0" />
   </joint>
   <link
     name="LEFT_PLATE">
@@ -595,11 +592,11 @@
       link="gripper_base" />
     <child
       link="LEFT_PLATE" />
-    <axis
-      xyz="0 -1 0" />
+    <axis xyz="-0 -1 -0" />
     <mimic joint="JOINT7" multiplier="0.0166667" offset="0.0" />
     <limit
-      lower="0.0" upper="0.025" effort="20" velocity="0.05" />
+      lower="0.0" upper="0.070" effort="80" velocity="1.0" />
+    <dynamics damping="20.0" friction="8.0" />
   </joint>
   <link
     name="RIGHT_PLATE">
@@ -643,7 +640,8 @@
       xyz="0 1 0" />
     <mimic joint="JOINT7" multiplier="0.0166667" offset="0.0" />
     <limit
-      lower="0.0" upper="0.025" effort="20" velocity="0.05" />
+      lower="0.0" upper="0.070" effort="80" velocity="1.0" />
+    <dynamics damping="20.0" friction="8.0" />
   </joint>
 
 
@@ -658,6 +656,8 @@
 
 
   <!-- ROS2_CONTROL_STANDARD_START -->
+  <!-- EMBEDDED_ROS2_CONTROL_WRAP_START -->
+  <xacro:if value="$(arg use_embedded_ros2_control)">
   <ros2_control name="GazeboSystem" type="system">
     <hardware>
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
@@ -676,7 +676,7 @@
       <state_interface name="effort" />
     </joint>
     <joint name="JOINT3">
-      <command_interface name="position"><param name="initial_value">0.0</param></command_interface>
+      <command_interface name="position" />
       <state_interface name="position"><param name="initial_value">-0.2955</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
@@ -718,6 +718,36 @@
       <state_interface name="effort" />
     </joint>
   </ros2_control>
+  </xacro:if>
+  <!-- EMBEDDED_ROS2_CONTROL_WRAP_END -->
+  <!-- EMBEDDED_GAZEBO_ROS2_CONTROL_PLUGIN_WRAP_START -->
+  <xacro:if value="$(arg use_embedded_ros2_control)">
+  </xacro:if>
+  <!-- EMBEDDED_GAZEBO_ROS2_CONTROL_PLUGIN_WRAP_END -->
+  <!-- ROS2_CONTROL_STANDARD_END -->
+
+
+  <!-- Gripper pose-check stabilization: prevent passive gripper parts from sagging before controllers are added -->
+  <gazebo reference="gripper_base">
+    <gravity>false</gravity>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <gazebo reference="drive_gear">
+    <gravity>false</gravity>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <gazebo reference="LEFT_PLATE">
+    <gravity>false</gravity>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <gazebo reference="RIGHT_PLATE">
+    <gravity>false</gravity>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+<!-- Gazebo: fix the actual root/base links so the robot body does not float or stand up. -->
 
   <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
@@ -727,6 +757,5 @@
       <hold_joints>true</hold_joints>
     </plugin>
   </gazebo>
-  <!-- ROS2_CONTROL_STANDARD_END -->
 
 </robot>

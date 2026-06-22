@@ -3,5 +3,5 @@ from moveit_configs_utils.launches import generate_moveit_rviz_launch
 
 
 def generate_launch_description():
-    moveit_config = MoveItConfigsBuilder("arm_only_clean", package_name="arm_only_moveit_config").to_moveit_configs()
+    moveit_config = MoveItConfigsBuilder("arm_only_gripper", package_name="arm_only_moveit_config").to_moveit_configs()
     return generate_moveit_rviz_launch(moveit_config)

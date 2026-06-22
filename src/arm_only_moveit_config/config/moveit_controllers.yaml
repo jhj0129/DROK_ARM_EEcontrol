@@ -1,20 +1,23 @@
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
 moveit_simple_controller_manager:
   controller_names:
-    - arm_controller
-
+  - arm_controller
+  - gripper_controller
   arm_controller:
     type: FollowJointTrajectory
-    action_ns: follow_joint_trajectory
     joints:
-      - JOINT1
-      - JOINT2
-      - JOINT3
-      - JOINT4
-      - JOINT5
-      - JOINT6
-
-trajectory_execution:
-  allowed_execution_duration_scaling: 20.0
-  allowed_goal_duration_margin: 20.0
-  allowed_start_tolerance: 0.10
-  execution_duration_monitoring: false
+    - JOINT1
+    - JOINT2
+    - JOINT3
+    - JOINT4
+    - JOINT5
+    - JOINT6
+    action_ns: follow_joint_trajectory
+    default: true
+  gripper_controller:
+    type: GripperCommand
+    joints:
+    - JOINT7
+    action_ns: gripper_cmd
+    default: true
+    command_joint: JOINT7

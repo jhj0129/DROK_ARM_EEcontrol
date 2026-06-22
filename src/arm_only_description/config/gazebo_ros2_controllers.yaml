@@ -11,9 +11,6 @@ controller_manager:
     gripper_controller:
       type: position_controllers/GripperActionController
 
-    plate_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
-
 arm_controller:
   ros__parameters:
     joints:
@@ -31,9 +28,9 @@ arm_controller:
       - position
       - velocity
 
-    allow_partial_joints_goal: false
     state_publish_rate: 50.0
     action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
 
 gripper_controller:
   ros__parameters:
@@ -44,21 +41,3 @@ gripper_controller:
     allow_stalling: true
     stall_velocity_threshold: 0.001
     stall_timeout: 1.0
-
-
-plate_controller:
-  ros__parameters:
-    joints:
-      - LEFT_PLATE_JOINT
-      - RIGHT_PLATE_JOINT
-
-    command_interfaces:
-      - position
-
-    state_interfaces:
-      - position
-      - velocity
-
-    allow_partial_joints_goal: false
-    state_publish_rate: 50.0
-    action_monitor_rate: 20.0

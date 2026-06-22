@@ -28,7 +28,7 @@ public:
   : Node("ee_joy_plan_execute_node")
   {
     declare_parameter<std::string>("planning_group", "arm");
-    declare_parameter<std::string>("ee_link", "LINK6");
+    declare_parameter<std::string>("ee_link", "gripper_tcp");
 
     declare_parameter<double>("linear_speed", 0.05);
     declare_parameter<double>("linear_speed_min", 0.01);
@@ -327,7 +327,7 @@ private:
   void publishMarker()
   {
     visualization_msgs::msg::Marker marker;
-    marker.header.frame_id = planning_frame_.empty() ? "BASE_LINK" : planning_frame_;
+    marker.header.frame_id = planning_frame_.empty() ? "ARM_BASE_LINK" : planning_frame_;
     marker.header.stamp = now();
 
     marker.ns = "ee_target";

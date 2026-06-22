@@ -9,3 +9,9 @@ install(
 )
 
 ament_package()
+
+
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
