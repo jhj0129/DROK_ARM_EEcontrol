@@ -1,26 +1,30 @@
-# ROS2 build outputs
-build/
-install/
-log/
-
-# Python
-__pycache__/
-*.pyc
-
-# Editor
-.vscode/
-.idea/
-
-# Backup files
-*.before_*
-*.bak_*
-*.backup
-*.old
 
 # Archives
-*.zip
+# Backup files
+# Editor
+# Python
+# ROS2 build outputs
+# ROS2 local build artifacts
+# System
+*.backup
+*.bag
+*.bak*
+*.bak_*
+*.before_*
+*.db3
+*.mcap
+*.old
+*.pyc
 *.tar
 *.tar.gz
-
-# System
+*.zip
 .DS_Store
+.cache/
+.idea/
+.vscode/
+__pycache__/
+backup_*/
+build/
+final_backup_*/
+install/
+log/

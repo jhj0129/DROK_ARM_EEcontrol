@@ -55,7 +55,8 @@
       link="LINK1" />
     <axis
       xyz="0 0 1" />
-    <limit lower="-0.78540" upper="2.26893" effort="35" velocity="1.2" />
+    <limit
+      lower="-5.759587" upper="5.759587" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -174,8 +175,8 @@
       link="LINK1" />
     <child
       link="LINK2" />
-    <axis xyz="0 1 0" />
-    <limit lower="0.00000" upper="3.14159" effort="35" velocity="1.2" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-3.141593" upper="0.10472" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -263,7 +264,7 @@
     <child
       link="LINK3" />
     <axis xyz="0 1 0" />
-    <limit lower="-3.14159" upper="0.00000" effort="35" velocity="1.2" />
+    <limit lower="-3.228859" upper="-0.087266" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -322,14 +323,17 @@
   <joint
     name="JOINT4"
     type="revolute">
-    <origin xyz="0.29265 0 0.083467" rpy="1.57079632679 0 0" />
+    <origin
+      xyz="0.29265 0 0.083467"
+      rpy="0 0 0" />
     <parent
       link="LINK3" />
     <child
       link="LINK4" />
     <axis
       xyz="1 0 0" />
-    <limit lower="-1.65806" upper="1.65806" effort="35" velocity="1.2" />
+    <limit
+      lower="-1.919862" upper="1.919862" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -402,8 +406,10 @@
       link="LINK4" />
     <child
       link="LINK5" />
-    <axis xyz="0 -1 0" />
-    <limit lower="-1.22173" upper="1.22173" effort="35" velocity="1.2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.570796" upper="1.570796" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -454,7 +460,7 @@
   </link>
   <joint
     name="JOINT6"
-    type="continuous">
+    type="revolute">
     <origin
       xyz="0.08175 0 0"
       rpy="0 0 0" />
@@ -463,8 +469,9 @@
     <child
       link="LINK6" />
     <axis
-      xyz="-1 0 0" />
-    <limit effort="35" velocity="1.2" />
+      xyz="1 0 0" />
+    <limit
+      lower="0.523599" upper="5.759587" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -477,7 +484,7 @@
     <visual>
       <origin
         xyz="0 0 0"
-        rpy="3.14159265359 0.00000000000 0.00000000000" />
+        rpy="0 0 0" />
       <geometry>
         <mesh
           filename="file://$(find arm_only_description)/meshes/gripper_base.STL" />
@@ -543,7 +550,8 @@
       link="drive_gear" />
     <axis
       xyz="-1 0 0" />
-    <limit lower="-1.78024" upper="6.42281" effort="20" velocity="8.0" />
+    <limit
+      lower="0.0" upper="4.2" effort="50" velocity="8.0" />
       <dynamics damping="4.0" friction="1.0" />
   </joint>
   <link
@@ -657,43 +665,43 @@
 
     <joint name="JOINT1">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="position"><param name="initial_value">-0.0318</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
     <joint name="JOINT2">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">0.58173277828</param></state_interface>
+      <state_interface name="position"><param name="initial_value">-0.2002</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
     <joint name="JOINT3">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">-0.37726745641</param></state_interface>
+      <state_interface name="position"><param name="initial_value">-0.2955</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
     <joint name="JOINT4">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="position"><param name="initial_value">0.0106</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
     <joint name="JOINT5">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="position"><param name="initial_value">0.0404</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
     <joint name="JOINT6">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">-0.78289622440</param></state_interface>
+      <state_interface name="position"><param name="initial_value">3.3295</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
     <joint name="JOINT7">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">-1.78024</param></state_interface>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
