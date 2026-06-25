@@ -50,7 +50,7 @@ class MoveItToRMDBridge(Node):
             ("can11", 0x141): 30.480000,    # JOINT4
             ("can11", 0x142): 0.380000,     # JOINT5
             ("can11", 0x143): 35.136667,    # JOINT6
-            ("can11", 0x144): -452.570000,  # JOINT7 gripper open raw
+            ("can11", 0x144): -108.771667,  # JOINT7 gripper open raw, recalibrated
         }
 
         # 현재 MoveIt Home 기준 [rad]
@@ -61,7 +61,7 @@ class MoveItToRMDBridge(Node):
             "JOINT4": 0.0,
             "JOINT5": 0.0,
             "JOINT6": -0.78289622440,
-            "JOINT7": -1.78024,
+            "JOINT7": -1.70000,
         }
 
         # RMD absolute position command counts = motor_deg * gear_ratio / 0.01
@@ -313,10 +313,10 @@ class MoveItToRMDBridge(Node):
         result = GripperCommand.Result()
         q = float(goal_handle.request.command.position)
 
-        q = max(-1.78024, min(6.42281, q))
+        q = max(-1.70000, min(45.00000, q))
         delta = (q - self.q_home_rad["JOINT7"]) * RAD2DEG
 
-        # JOINT7: 현재는 단순 모델. 실제 그리퍼 방향은 별도 최종 검증 필요.
+        # JOINT7: measured close direction is raw increase.
         raw_deg = self.raw_home_deg[("can11", 0x144)] + delta
 
         print("\n================ GRIPPER BRIDGE SUMMARY ================")

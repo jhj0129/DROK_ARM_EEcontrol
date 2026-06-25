@@ -32,12 +32,18 @@
         <joint name="JOINT5" value="0.0404"/>
         <joint name="JOINT6" value="5.32389510239"/>
     </group_state>
-<group_state name="open" group="gripper">
-        <joint name="JOINT7" value="0"/>
+
+
+    <group_state name="open" group="gripper">
+        <joint name="JOINT7" value="-1.70000"/>
+    </group_state>
+    <group_state name="mid" group="gripper">
+        <joint name="JOINT7" value="21.65000"/>
     </group_state>
     <group_state name="close" group="gripper">
-        <joint name="JOINT7" value="4.2"/>
+        <joint name="JOINT7" value="45.00000"/>
     </group_state>
+
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="gripper" parent_link="gripper_base" group="gripper" parent_group="arm"/>
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->

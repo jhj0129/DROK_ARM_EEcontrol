@@ -56,7 +56,8 @@
                   <param name="initial_value">${initial_positions['JOINT7']}</param>
                 </state_interface>
                 <state_interface name="velocity"/>
-            </joint>
+              <limit lower="-1.70000" upper="45.00000" effort="10" velocity="10.0"/>
+</joint>
 
         </ros2_control>
     </xacro:macro>

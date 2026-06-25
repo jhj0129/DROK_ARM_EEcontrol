@@ -90,6 +90,9 @@ public:
         // JointState 퍼블리셔
         rclcpp::QoS qos_profile(rclcpp::KeepLast(10));
         joint_state_publisher_ = this->create_publisher<sensor_msgs::msg::JointState>("/joint_states", qos_profile);
+        gripper_close_ratio_publisher_ = this->create_publisher<std_msgs::msg::Float64>("/gripper/close_ratio", qos_profile);
+        gripper_width_m_publisher_ = this->create_publisher<std_msgs::msg::Float64>("/gripper/width_m", qos_profile);
+        gripper_width_cm_publisher_ = this->create_publisher<std_msgs::msg::Float64>("/gripper/width_cm", qos_profile);
 
         RCLCPP_INFO(this->get_logger(), "Configured to read %zu motor angles.", all_motors_.size());
 
@@ -371,6 +374,7 @@ private:
         const double home_11_141 = 30.480000;
         const double home_11_142 = 0.380000;
         const double home_11_143 = 35.136667;
+        const double home_11_144 = 12.150000;
 
         // MoveIt에서 쓰는 Home 기준
         const double q1_home = 0.0;
@@ -388,6 +392,7 @@ private:
         const double raw11_141 = get_motor_deg("can11_motor_0x141", home_11_141);
         const double raw11_142 = get_motor_deg("can11_motor_0x142", home_11_142);
         const double raw11_143 = get_motor_deg("can11_motor_0x143", home_11_143);
+        const double raw11_144 = get_motor_deg("can11_motor_0x144", home_11_144);
 
         // JOINT1
         const double q1 = q1_home + (raw141 - home_141) * deg2rad;
@@ -402,9 +407,29 @@ private:
         const double q5 = q5_home + (raw11_142 - home_11_142) * deg2rad;
         const double q6 = q6_home + (raw11_143 - home_11_143) * deg2rad;
 
-        // 지금은 arm planning 검증 단계라 그리퍼는 항상 최대 벌림 상태로 표시
-        // 실제 그리퍼를 움직이지 않는다. RViz/MoveIt 상태만 open으로 고정한다.
-        const double q7 = -1.78024;
+
+
+
+
+
+        // JOINT7 gripper feedback mapping
+        // Recalibrated feedback:
+        //   fully open  raw can11 0x144 = -108.771667 deg -> q7 = -1.70000, width = 0.143 m
+        //   fully close raw can11 0x144 = 417.555000 deg -> q7 = 45.00000, width = 0.000 m
+        // close_ratio = 0.0 means fully open, 1.0 means fully closed.
+        const double q7_open = -1.70000;
+        const double q7_close = 45.00000;
+        const double raw7_open = -108.771667;
+        const double raw7_close = 417.555000;
+        const double gripper_width_open_m = 0.143000;
+
+        double gripper_close_ratio = (raw11_144 - raw7_open) / (raw7_close - raw7_open);
+        if (gripper_close_ratio < 0.0) gripper_close_ratio = 0.0;
+        if (gripper_close_ratio > 1.0) gripper_close_ratio = 1.0;
+
+        double q7 = q7_open + gripper_close_ratio * (q7_close - q7_open);
+        double gripper_width_m = gripper_width_open_m * (1.0 - gripper_close_ratio);
+        double gripper_width_cm = gripper_width_m * 100.0;
 
         auto wrap_to_pi = [](double a) {
             while (a > M_PI) {
@@ -424,6 +449,18 @@ private:
         msg->position = {q1, q2, q3, q4, q5, q6, q7};
 
         joint_state_publisher_->publish(std::move(msg));
+
+        auto ratio_msg = std::make_unique<std_msgs::msg::Float64>();
+        ratio_msg->data = gripper_close_ratio;
+        gripper_close_ratio_publisher_->publish(std::move(ratio_msg));
+
+        auto width_m_msg = std::make_unique<std_msgs::msg::Float64>();
+        width_m_msg->data = gripper_width_m;
+        gripper_width_m_publisher_->publish(std::move(width_m_msg));
+
+        auto width_cm_msg = std::make_unique<std_msgs::msg::Float64>();
+        width_cm_msg->data = gripper_width_cm;
+        gripper_width_cm_publisher_->publish(std::move(width_cm_msg));
     }
 
     rclcpp::TimerBase::SharedPtr timer_;
@@ -432,6 +469,9 @@ private:
     struct can_frame frame_tx_{};
 
     rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr joint_state_publisher_;
+    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr gripper_close_ratio_publisher_;
+    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr gripper_width_m_publisher_;
+    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr gripper_width_cm_publisher_;
 };
 
 int main(int argc, char * argv[]) {
