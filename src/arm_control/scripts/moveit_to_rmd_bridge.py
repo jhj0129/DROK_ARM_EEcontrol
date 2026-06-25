@@ -56,7 +56,7 @@ class MoveItToRMDBridge(Node):
         # 현재 MoveIt Home 기준 [rad]
         self.q_home_rad = {
             "JOINT1": 0.0,
-            "JOINT2": 0.58173277828,
+            "JOINT2": 0.385378389294,
             "JOINT3": -0.37726745641,
             "JOINT4": 0.0,
             "JOINT5": 0.0,

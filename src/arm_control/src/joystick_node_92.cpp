@@ -374,7 +374,7 @@ private:
 
         // MoveIt에서 쓰는 Home 기준
         const double q1_home = 0.0;
-        const double q2_home = 0.58173277828;  // 33.330833 deg, RC-style real home
+        const double q2_home = 0.385378389294;  // 33.330833 deg, RC-style real home
         const double q3_home = -0.37726745641; // -21.615833 deg, RC-style real home
         const double q4_home = 0.0;
         const double q5_home = 0.0;
