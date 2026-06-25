@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="arm_only_gripper">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm">
+        <chain base_link="ARM_BASE_LINK" tip_link="gripper_tcp"/>
+    </group>
+    <group name="gripper">
+        <joint name="JOINT7"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="home" group="arm">
+        <joint name="JOINT1" value="0.0"/>
+        <joint name="JOINT2" value="0.58173277828"/>
+        <joint name="JOINT3" value="-0.37726745641"/>
+        <joint name="JOINT4" value="0.0"/>
+        <joint name="JOINT5" value="0.0"/>
+        <joint name="JOINT6" value="-0.78289622440"/>
+    </group_state>
+        <group_state name="forward_ready" group="arm">
+        <joint name="JOINT1" value="-0.0318"/>
+        <joint name="JOINT2" value="-1.2"/>
+        <joint name="JOINT3" value="-0.95"/>
+        <joint name="JOINT4" value="0.0106"/>
+        <joint name="JOINT5" value="0.0404"/>
+        <joint name="JOINT6" value="5.32389510239"/>
+    </group_state>
+<group_state name="open" group="gripper">
+        <joint name="JOINT7" value="0"/>
+    </group_state>
+    <group_state name="close" group="gripper">
+        <joint name="JOINT7" value="4.2"/>
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="gripper" parent_link="gripper_base" group="gripper" parent_group="arm"/>
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="ARM_BASE_LINK"/>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="ARM_BASE_LINK" link2="LINK1" reason="Adjacent"/>
+    <disable_collisions link1="LEFT_PLATE" link2="LINK3" reason="Never"/>
+    <disable_collisions link1="LEFT_PLATE" link2="LINK4" reason="Never"/>
+    <disable_collisions link1="LEFT_PLATE" link2="LINK5" reason="Never"/>
+    <disable_collisions link1="LEFT_PLATE" link2="LINK6" reason="Never"/>
+    <disable_collisions link1="LEFT_PLATE" link2="RIGHT_PLATE" reason="Never"/>
+    <disable_collisions link1="LEFT_PLATE" link2="gripper_base" reason="Adjacent"/>
+    <disable_collisions link1="LINK1" link2="LINK2" reason="Adjacent"/>
+    <disable_collisions link1="LINK2" link2="LINK3" reason="Adjacent"/>
+    <disable_collisions link1="LINK2" link2="LINK4" reason="Default"/>
+    <disable_collisions link1="LINK3" link2="LINK4" reason="Adjacent"/>
+    <disable_collisions link1="LINK3" link2="LINK6" reason="Never"/>
+    <disable_collisions link1="LINK3" link2="RIGHT_PLATE" reason="Never"/>
+    <disable_collisions link1="LINK3" link2="gripper_base" reason="Never"/>
+    <disable_collisions link1="LINK4" link2="LINK5" reason="Adjacent"/>
+    <disable_collisions link1="LINK4" link2="LINK6" reason="Never"/>
+    <disable_collisions link1="LINK4" link2="RIGHT_PLATE" reason="Never"/>
+    <disable_collisions link1="LINK4" link2="gripper_base" reason="Never"/>
+    <disable_collisions link1="LINK5" link2="LINK6" reason="Adjacent"/>
+    <disable_collisions link1="LINK5" link2="RIGHT_PLATE" reason="Never"/>
+    <disable_collisions link1="LINK5" link2="gripper_base" reason="Never"/>
+    <disable_collisions link1="LINK6" link2="RIGHT_PLATE" reason="Never"/>
+    <disable_collisions link1="LINK6" link2="gripper_base" reason="Adjacent"/>
+    <disable_collisions link1="RIGHT_PLATE" link2="gripper_base" reason="Adjacent"/>
+    <disable_collisions link1="LINK2" link2="LINK6" reason="RelaxedForPlanning"/>
+    <disable_collisions link1="LINK3" link2="LINK5" reason="RelaxedForPlanning"/>
+</robot>

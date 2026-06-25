@@ -1,0 +1,29 @@
+FINAL REAL HOME MAPPER
+
+Home raw angles:
+can10 0x141 = -4.503333
+can10 0x142 = 33.330833
+can10 0x143 = -0.030000
+can10 0x144 = 21.615833
+can11 0x141 = 30.480000
+can11 0x142 = 0.380000
+can11 0x143 = 35.136667
+can11 0x144 = -452.570000
+
+MoveIt home target:
+JOINT1 = 0
+JOINT2 = 1.57079632679
+JOINT3 = -1.57079632679
+JOINT4 = 0
+JOINT5 = 0
+JOINT6 = 0
+JOINT7 = -1.78024
+
+motor_topics:
+['/motor_angles/can10_motor_0x141','/motor_angles/can10_motor_0x142','/motor_angles/can10_motor_0x144','/motor_angles/can11_motor_0x141','/motor_angles/can11_motor_0x142','/motor_angles/can11_motor_0x143','/motor_angles/can11_motor_0x144']
+
+joint_signs:
+[1.0,-1.0,-1.0,1.0,-1.0,1.0,1.0]
+
+joint_offsets_rad:
+[0.0768817536,1.5707236047,-1.5676595823,-0.5352924816,0.0068067841,-0.6865834389,6.1188043805]

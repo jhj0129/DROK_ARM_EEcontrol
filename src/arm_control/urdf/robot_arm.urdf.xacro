@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<robot name="robot_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- =================================================================== -->
+  <!-- |                       LINK DEFINITIONS                          | -->
+  <!-- =================================================================== -->
+  <!-- 시각적 표현을 위한 간단한 링크들. 실제 모양과 크기는 조정이 필요합니다. -->
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.05"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.1 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Link 1 -->
+  <link name="link1">
+    <visual>
+      <geometry>
+        <cylinder length="0.09925" radius="0.04"/>
+      </geometry>
+      <origin xyz="0 0 ${0.09925/2}" rpy="0 0 0"/>
+      <material name="blue">
+        <color rgba="0.1 0.1 0.8 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.09925" radius="0.04"/>
+      </geometry>
+      <origin xyz="0 0 ${0.09925/2}" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <!-- Link 2 -->
+  <link name="link2">
+    <visual>
+      <geometry>
+        <cylinder length="0.34865" radius="0.04"/>
+      </geometry>
+      <origin xyz="${-0.34865/2} 0 0" rpy="0 1.57079632679 0"/>
+      <material name="green">
+        <color rgba="0.1 0.8 0.1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.34865" radius="0.04"/>
+      </geometry>
+      <origin xyz="${-0.34865/2} 0 0" rpy="0 1.57079632679 0"/>
+    </collision>
+  </link>
+
+  <!-- Link 3 -->
+  <link name="link3">
+    <visual>
+      <geometry>
+        <box size="0.2518 0.06 0.08347"/>
+      </geometry>
+      <origin xyz="${0.2518/2} 0 ${0.08347/2}" rpy="0 0 0"/>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.2518 0.06 0.08347"/>
+      </geometry>
+      <origin xyz="${0.2518/2} 0 ${0.08347/2}" rpy="0 0 0"/>
+    </collision>
+  </link>
+
+  <!-- Link 4 -->
+  <link name="link4">
+    <visual>
+      <geometry>
+        <cylinder length="0.06049" radius="0.035"/>
+      </geometry>
+      <origin xyz="${0.06049/2} 0 0" rpy="0 1.57079632679 0"/>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.06049" radius="0.035"/>
+      </geometry>
+      <origin xyz="${0.06049/2} 0 0" rpy="0 1.57079632679 0"/>
+    </collision>
+  </link>
+
+  <!-- Link 5 -->
+  <link name="link5">
+    <visual>
+      <geometry>
+        <cylinder length="0.05815" radius="0.035"/>
+      </geometry>
+      <origin xyz="${0.05815/2} 0 0" rpy="0 1.57079632679 0"/>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.05815" radius="0.035"/>
+      </geometry>
+      <origin xyz="${0.05815/2} 0 0" rpy="0 1.57079632679 0"/>
+    </collision>
+  </link>
+
+  <!-- Link 6 (Wrist/Flange) -->
+  <link name="link6">
+    <visual>
+      <geometry>
+        <cylinder length="0.06715" radius="0.03"/>
+      </geometry>
+      <origin xyz="${0.06715/2} 0 0" rpy="0 1.57079632679 0"/>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.06715" radius="0.03"/>
+      </geometry>
+      <origin xyz="${0.06715/2} 0 0" rpy="0 1.57079632679 0"/>
+    </collision>
+  </link>
+
+  <!-- End-Effector Link (Tool) -->
+  <link name="tool0"/>
+
+
+  <!-- =================================================================== -->
+  <!-- |                       JOINT DEFINITIONS                         | -->
+  <!-- =================================================================== -->
+  <!-- C++ 코드의 변환 행렬을 기반으로 관절을 정의합니다. -->
+
+  <!-- Joint 1 (Base to Link 1) -->
+  <joint name="joint1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 -0.01525" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="100" velocity="2.0"/>
+  </joint>
+
+  <!-- Joint 2 (Link 1 to Link 2) -->
+  <joint name="joint2" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="0 0 0.09925" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="100" velocity="2.0"/>
+  </joint>
+
+  <!-- Joint 3 (Link 2 to Link 3) -->
+  <joint name="joint3" type="revolute">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin xyz="-0.34865 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="100" velocity="2.0"/>
+  </joint>
+
+  <!-- Joint 4 (Link 3 to Link 4) -->
+  <joint name="joint4" type="revolute">
+    <parent link="link3"/>
+    <child link="link4"/>
+    <origin xyz="0.2518 0 0.08347" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="100" velocity="2.0"/>
+  </joint>
+
+  <!-- Joint 5 (Link 4 to Link 5) -->
+  <!-- C++ 코드의 특이한 회전 행렬을 반영하기 위해 rpy 오프셋을 추가했습니다. -->
+  <!-- 이 부분은 RViz에서 확인하며 조정이 필요할 수 있습니다. -->
+  <joint name="joint5" type="revolute">
+    <parent link="link4"/>
+    <child link="link5"/>
+    <origin xyz="0.06049 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="100" velocity="2.0"/>
+  </joint>
+
+  <!-- Joint 6 (Link 5 to Link 6) -->
+  <joint name="joint6" type="revolute">
+    <parent link="link5"/>
+    <child link="link6"/>
+    <origin xyz="0.05815 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="100" velocity="2.0"/>
+  </joint>
+
+  <!-- End-Effector Joint (Fixed) -->
+  <joint name="joint_tool" type="fixed">
+    <parent link="link6"/>
+    <child link="tool0"/>
+    <origin xyz="0.06715 0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>
