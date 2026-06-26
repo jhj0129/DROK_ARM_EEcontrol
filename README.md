@@ -4,7 +4,7 @@
 
 ---
 
-## 1. 개발/검증 완료 내용
+## 1-1. 개발/검증 완료 내용 및 추가 개선점
 
 현재 프로젝트는 기존 6축 DROK ARM 제어에 실제 그리퍼 구동축 `JOINT7`을 추가하여, MoveIt/RViz와 실제 RMD 모터 기반 그리퍼가 함께 동작하도록 구성되어 있습니다.
 
@@ -22,6 +22,12 @@
 - cm 단위 그리퍼 벌림 명령을 action command로 변환하여 테스트 완료
 - GitHub push 완료 commit:
   - `cf0bee1 Calibrate real gripper feedback and MoveIt mimic motion`
+
+## 1-2. 추가 개선점 
+개선점 및 추가 기능 예정안
+
+-
+
 
 ---
 
