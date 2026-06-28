@@ -349,12 +349,3 @@ Summary: 5 packages finished
 
 ---
 
-## 11. GitHub 반영 상태
-
-최종 변경사항은 GitHub `main` 브랜치에 push 완료되었습니다.
-
-```text
-commit cf0bee1
-Calibrate real gripper feedback and MoveIt mimic motion
-```
-
