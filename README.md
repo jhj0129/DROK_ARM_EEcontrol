@@ -358,10 +358,3 @@ commit cf0bee1
 Calibrate real gripper feedback and MoveIt mimic motion
 ```
 
-최종 확인 상태:
-
-```text
-현재 브랜치 main
-브랜치가 'origin/main'에 맞게 업데이트된 상태입니다.
-커밋할 사항 없음, 작업 폴더 깨끗함
-```
