@@ -22,4 +22,10 @@
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+  <depend>shape_msgs</depend>
+  <depend>moveit_core</depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <depend>std_msgs</depend>
+  <depend>opencv</depend>
 </package>
