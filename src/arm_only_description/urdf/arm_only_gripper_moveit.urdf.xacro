@@ -329,7 +329,7 @@
       link="LINK4" />
     <axis
       xyz="1 0 0" />
-    <limit lower="-1.65806" upper="1.65806" effort="35" velocity="1.2" />
+    <limit lower="-5.89101" upper="2.64243" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -403,7 +403,7 @@
     <child
       link="LINK5" />
     <axis xyz="0 -1 0" />
-    <limit lower="-1.22173" upper="1.22173" effort="35" velocity="1.2" />
+    <limit lower="-1.52175" upper="1.31947" effort="35" velocity="1.2" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -452,9 +452,7 @@
       </geometry>
     </collision>
   </link>
-  <joint
-    name="JOINT6"
-    type="continuous">
+  <joint name="JOINT6" type="revolute">
     <origin
       xyz="0.08175 0 0"
       rpy="0 0 0" />
@@ -464,7 +462,7 @@
       link="LINK6" />
     <axis
       xyz="-1 0 0" />
-    <limit effort="35" velocity="1.2" />
+    <limit lower="-2.87729" upper="1.31150" effort="35" velocity="1.0" />
       <dynamics damping="2" friction="0.3" />
   </joint>
   <link
@@ -502,9 +500,7 @@
   <joint
     name="gripper_mount_joint"
     type="fixed">
-    <origin
-      xyz="0.04825 0 0"
-      rpy="-0.16782 0 0" />
+    <origin xyz="0.04825 0 0" rpy="0.79188 0 0" />
     <parent
       link="LINK6" />
     <child
@@ -662,7 +658,7 @@
     </joint>
     <joint name="JOINT2">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">0.58173277828</param></state_interface>
+      <state_interface name="position"><param name="initial_value">0.385378389294</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>
@@ -692,7 +688,7 @@
     </joint>
     <joint name="JOINT7">
       <command_interface name="position" />
-      <state_interface name="position"><param name="initial_value">-1.78024</param></state_interface>
+      <state_interface name="position"><param name="initial_value">-1.70000</param></state_interface>
       <state_interface name="velocity" />
       <state_interface name="effort" />
     </joint>

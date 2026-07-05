@@ -281,7 +281,7 @@
     <parent link="LINK5" />
     <child link="LINK6" />
     <axis xyz="-1 0 0" />
-    <limit lower="0.523599" upper="5.759587" effort="35" velocity="1.2" />
+    <limit lower="-2.87729" upper="1.31150" effort="35" velocity="1.0" />
     <dynamics damping="2" friction="0.3" />
   </joint>
 

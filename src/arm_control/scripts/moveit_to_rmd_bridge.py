@@ -43,13 +43,13 @@ class MoveItToRMDBridge(Node):
 
         # 손으로 맞춘 실제 Home raw angle [deg]
         self.raw_home_deg = {
-            ("can10", 0x141): -4.503333,    # JOINT1
+            ("can10", 0x141): 5.109444444444445,    # JOINT1 real home recalibrated 2026-07-05
             ("can10", 0x142): 33.330833,    # JOINT2 main
             ("can10", 0x143): -0.030000,    # JOINT2 mirror
             ("can10", 0x144): 21.615833,    # JOINT3
             ("can11", 0x141): 30.480000,    # JOINT4
             ("can11", 0x142): 0.380000,     # JOINT5
-            ("can11", 0x143): 35.136667,    # JOINT6
+            ("can11", 0x143): -20.668333333333333,  # JOINT6 wiring-safe home measured 2026-07-05
             ("can11", 0x144): -108.771667,  # JOINT7 gripper open raw, recalibrated
         }
 
@@ -73,7 +73,7 @@ class MoveItToRMDBridge(Node):
             ("can10", 0x144): 36.0,
             ("can11", 0x141): 1.0,
             ("can11", 0x142): 1.0,
-            ("can11", 0x143): 1.0,  # JOINT6: raw_deg is already RMD angle; avoid 6x over-command
+            ("can11", 0x143): 1.0,  # JOINT6: raw_deg is already RMD angle; avoid over-command
             ("can11", 0x144): 1.0,
         }
 

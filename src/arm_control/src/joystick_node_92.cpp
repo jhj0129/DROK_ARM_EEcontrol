@@ -366,14 +366,14 @@ private:
         const double deg2rad = M_PI / 180.0;
 
         // 손으로 맞춘 실제 Home raw angle
-        const double home_141 = -4.503333;
+        const double home_141 = 5.109444444444445;  // JOINT1 real home recalibrated 2026-07-05
         const double home_142 = 33.330833;
         const double home_143 = -0.030000;
         const double home_144 = 21.615833;
 
         const double home_11_141 = 30.480000;
         const double home_11_142 = 0.380000;
-        const double home_11_143 = 35.136667;
+        const double home_11_143 = -20.668333333333333;  // JOINT6 wiring-safe home measured 2026-07-05
         const double home_11_144 = 12.150000;
 
         // MoveIt에서 쓰는 Home 기준
@@ -382,7 +382,7 @@ private:
         const double q3_home = -0.37726745641; // -21.615833 deg, RC-style real home
         const double q4_home = 0.0;
         const double q5_home = 0.0;
-        const double q6_home = -0.78289622440;  // -45 deg JOINT6 visual/home offset
+        const double q6_home = -0.78289622440;  // wiring-safe visual/home offset
 
         const double raw141 = get_motor_deg("can10_motor_0x141", home_141);
         const double raw142 = get_motor_deg("can10_motor_0x142", home_142);
