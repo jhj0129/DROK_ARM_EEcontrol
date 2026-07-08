@@ -6,7 +6,7 @@ def generate_launch_description():
     return LaunchDescription([
         # demo.launch.py / RViz FakeSystem 기준은 false가 안전함
         # Gazebo와 같이 쓸 때만 true로 바꿔도 됨
-        SetParameter(name="use_sim_time", value=True),
+        SetParameter(name="use_sim_time", value=False),
 
         Node(
             package="arm_only_ee_joystick_control",
@@ -14,7 +14,7 @@ def generate_launch_description():
             name="ee_joy_plan_execute_node",
             output="screen",
             parameters=[{
-                "use_sim_time": True,
+                "use_sim_time": False,
 
                 # 새 gripper 포함 MoveIt config 기준
                 "planning_group": "arm",

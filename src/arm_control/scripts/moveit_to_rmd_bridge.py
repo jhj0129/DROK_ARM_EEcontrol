@@ -41,16 +41,19 @@ class MoveItToRMDBridge(Node):
         # MoveIt arm joints
         self.joint_order = ["JOINT1", "JOINT2", "JOINT3", "JOINT4", "JOINT5", "JOINT6"]
 
-        # 손으로 맞춘 실제 Home raw angle [deg]
+        # Shared real robot home parameters.
+        # Pass src/arm_control/config/real_home.yaml with --ros-args --params-file.
+        home = lambda name, default: float(self.declare_parameter(name, default).value)
+
         self.raw_home_deg = {
-            ("can10", 0x141): 5.109444444444445,    # JOINT1 real home recalibrated 2026-07-05
-            ("can10", 0x142): 33.330833,    # JOINT2 main
-            ("can10", 0x143): -0.030000,    # JOINT2 mirror
-            ("can10", 0x144): 21.615833,    # JOINT3
-            ("can11", 0x141): 30.480000,    # JOINT4
-            ("can11", 0x142): 0.380000,     # JOINT5
-            ("can11", 0x143): -20.668333333333333,  # JOINT6 wiring-safe home measured 2026-07-05
-            ("can11", 0x144): -108.771667,  # JOINT7 gripper open raw, recalibrated
+            ("can10", 0x141): home("home_can10_0x141", 4.6525),    # JOINT1
+            ("can10", 0x142): home("home_can10_0x142", 33.330833), # JOINT2 main
+            ("can10", 0x143): home("home_can10_0x143", -0.030000), # JOINT2 mirror
+            ("can10", 0x144): home("home_can10_0x144", 21.615833), # JOINT3
+            ("can11", 0x141): home("home_can11_0x141", 30.480000), # JOINT4
+            ("can11", 0x142): home("home_can11_0x142", 0.380000),  # JOINT5
+            ("can11", 0x143): home("home_can11_0x143", -20.668333333333333), # JOINT6
+            ("can11", 0x144): home("home_can11_0x144", 12.150000), # JOINT7 feedback reference
         }
 
         # 현재 MoveIt Home 기준 [rad]
@@ -73,7 +76,7 @@ class MoveItToRMDBridge(Node):
             ("can10", 0x144): 36.0,
             ("can11", 0x141): 1.0,
             ("can11", 0x142): 1.0,
-            ("can11", 0x143): 1.0,  # JOINT6: raw_deg is already RMD angle; avoid over-command
+            ("can11", 0x143): 6.0,  # JOINT6: feedback uses 0.01/6 deg/count, so command must multiply by 6
             ("can11", 0x144): 1.0,
         }
 

@@ -1,0 +1,32 @@
+===== J1 REAL HOME RECALIBRATION =====
+2026. 07. 05. (일) 16:54:33 KST
+
+===== raw JOINT1 can10 0x141 =====
+data: 5.109444444444445
+---
+
+===== /joint_states =====
+header:
+  stamp:
+    sec: 1783238074
+    nanosec: 978438241
+  frame_id: ''
+name:
+- JOINT1
+- JOINT2
+- JOINT3
+- JOINT4
+- JOINT5
+- JOINT6
+- JOINT7
+position:
+- 0.16777461666700183
+- 0.38537839511176414
+- -0.3772626140909531
+- 0.0
+- -0.0001745329251994331
+- -0.8131776869221016
+- 10.378269537689985
+velocity: []
+effort: []
+---

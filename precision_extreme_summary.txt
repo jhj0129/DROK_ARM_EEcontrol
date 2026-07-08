@@ -1,0 +1,136 @@
+[ee_precision_pose_plan_node-1] [INFO] [1782724951.148459884] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724951.148835385] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3400 y=-0.0000 z=0.2547 / target: x=0.3500 y=0.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724951.148849892] [ee_precision_pose_plan_node]: Precision IK result: error=0.0111 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782724951.170322537] [ee_precision_pose_plan_node]: Trajectory validation passed. points=19
+[ee_precision_pose_plan_node-1] [INFO] [1782724955.194519075] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724955.195336194] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4924 y=-0.0000 z=0.2565 / target: x=0.5000 y=0.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724955.195362854] [ee_precision_pose_plan_node]: Precision IK result: error=0.0100 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782724955.219332274] [ee_precision_pose_plan_node]: Trajectory validation passed. points=41
+[ee_precision_pose_plan_node-1] [INFO] [1782724959.210438198] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.650 y=0.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724959.211670137] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6204 y=-0.0000 z=0.3220 / target: x=0.6500 y=0.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724959.211708975] [ee_precision_pose_plan_node]: Precision IK result: error=0.0778 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724959.211720902] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782724963.266991153] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.800 y=0.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724963.268262482] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6298 y=-0.0004 z=0.3982 / target: x=0.8000 y=0.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724963.268285528] [ee_precision_pose_plan_node]: Precision IK result: error=0.2257 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724963.268291652] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782724967.784144235] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.950 y=0.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724967.801252794] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6336 y=-0.0130 z=0.4496 / target: x=0.9500 y=0.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724967.801298698] [ee_precision_pose_plan_node]: Precision IK result: error=0.3744 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724967.801307093] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782724971.815127291] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=1.100 y=0.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724971.832193178] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6334 y=-0.0166 z=0.4514 / target: x=1.1000 y=0.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724971.832221126] [ee_precision_pose_plan_node]: Precision IK result: error=0.5085 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724971.832227769] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782724975.862714971] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=1.200 y=0.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724975.884076905] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6330 y=-0.0197 z=0.4558 / target: x=1.2000 y=0.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724975.884107148] [ee_precision_pose_plan_node]: Precision IK result: error=0.6035 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724975.884117106] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782724979.902405949] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.200 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724979.903190628] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4907 y=-0.1968 z=0.2594 / target: x=0.5000 y=-0.2000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724979.903216819] [ee_precision_pose_plan_node]: Precision IK result: error=0.0136 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782724979.931913793] [ee_precision_pose_plan_node]: Trajectory validation passed. points=45
+[ee_precision_pose_plan_node-1] [INFO] [1782724983.942361885] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.400 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724983.943345002] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4797 y=-0.3863 z=0.3101 / target: x=0.5000 y=-0.4000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724983.943366121] [ee_precision_pose_plan_node]: Precision IK result: error=0.0649 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724983.943372600] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782724987.990544750] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.600 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724987.991567484] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4014 y=-0.4845 z=0.4484 / target: x=0.5000 y=-0.6000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724987.991582500] [ee_precision_pose_plan_node]: Precision IK result: error=0.2499 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724987.991588365] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782724992.050873458] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.800 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724992.067426314] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4293 y=-0.4656 z=0.4499 / target: x=0.5000 y=-0.8000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724992.067442765] [ee_precision_pose_plan_node]: Precision IK result: error=0.3959 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724992.067448711] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782724996.076444818] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-1.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782724996.095173290] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4303 y=-0.4641 z=0.4603 / target: x=0.5000 y=-1.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782724996.095209349] [ee_precision_pose_plan_node]: Precision IK result: error=0.5799 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782724996.095216838] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725004.188142310] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.200 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782725004.189076739] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4907 y=0.1968 z=0.2594 / target: x=0.5000 y=0.2000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782725004.189102449] [ee_precision_pose_plan_node]: Precision IK result: error=0.0136 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782725004.217291417] [ee_precision_pose_plan_node]: Trajectory validation passed. points=45
+[ee_precision_pose_plan_node-1] [INFO] [1782725008.212028639] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.400 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782725008.212877637] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4797 y=0.3862 z=0.3101 / target: x=0.5000 y=0.4000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782725008.212892828] [ee_precision_pose_plan_node]: Precision IK result: error=0.0649 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725008.212899992] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725012.265526111] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.600 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782725012.266622796] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3948 y=0.4904 z=0.4467 / target: x=0.5000 y=0.6000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782725012.266637455] [ee_precision_pose_plan_node]: Precision IK result: error=0.2485 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725012.266642880] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725016.307837453] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.800 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782725016.329597331] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3250 y=0.5440 z=0.4499 / target: x=0.5000 y=0.8000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782725016.329655067] [ee_precision_pose_plan_node]: Precision IK result: error=0.3690 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725016.329665383] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725020.350813787] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=1.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782725020.368082481] [ee_precision_pose_plan_node]: Final reached EE position: x=0.2653 y=0.5749 z=0.4566 / target: x=0.5000 y=1.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782725020.368109040] [ee_precision_pose_plan_node]: Precision IK result: error=0.5277 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725020.368116514] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725024.388612065] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=1.200 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782725024.405417034] [ee_precision_pose_plan_node]: Final reached EE position: x=0.2260 y=0.5918 z=0.4538 / target: x=0.5000 y=1.2000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782725024.405454292] [ee_precision_pose_plan_node]: Precision IK result: error=0.6976 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725024.405470200] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725028.431456822] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=0.350
+[ee_precision_pose_plan_node-1] [INFO] [1782725028.431846462] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3416 y=0.0000 z=0.3415 / target: x=0.3500 y=0.0000 z=0.3500
+[ee_precision_pose_plan_node-1] [INFO] [1782725028.431866412] [ee_precision_pose_plan_node]: Precision IK result: error=0.0120 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782725028.456278732] [ee_precision_pose_plan_node]: Trajectory validation passed. points=18
+[ee_precision_pose_plan_node-1] [INFO] [1782725032.490881874] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=0.500
+[ee_precision_pose_plan_node-1] [INFO] [1782725032.491682234] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3473 y=-0.0000 z=0.4891 / target: x=0.3500 y=0.0000 z=0.5000
+[ee_precision_pose_plan_node-1] [INFO] [1782725032.491727901] [ee_precision_pose_plan_node]: Precision IK result: error=0.0112 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782725032.518281303] [ee_precision_pose_plan_node]: Trajectory validation passed. points=31
+[ee_precision_pose_plan_node-1] [INFO] [1782725036.531490912] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=0.650
+[ee_precision_pose_plan_node-1] [INFO] [1782725036.532417309] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3499 y=0.0000 z=0.6316 / target: x=0.3500 y=0.0000 z=0.6500
+[ee_precision_pose_plan_node-1] [INFO] [1782725036.532442834] [ee_precision_pose_plan_node]: Precision IK result: error=0.0184 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782725036.558048948] [ee_precision_pose_plan_node]: Trajectory validation passed. points=46
+[ee_precision_pose_plan_node-1] [INFO] [1782725040.588259935] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=0.800
+[ee_precision_pose_plan_node-1] [INFO] [1782725040.589278709] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4463 y=0.0002 z=0.6291 / target: x=0.3500 y=0.0000 z=0.8000
+[ee_precision_pose_plan_node-1] [INFO] [1782725040.589297689] [ee_precision_pose_plan_node]: Precision IK result: error=0.1961 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725040.589303779] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725044.633175767] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=0.950
+[ee_precision_pose_plan_node-1] [INFO] [1782725044.651723289] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6310 y=0.0179 z=0.4099 / target: x=0.3500 y=0.0000 z=0.9500
+[ee_precision_pose_plan_node-1] [INFO] [1782725044.651759701] [ee_precision_pose_plan_node]: Precision IK result: error=0.6091 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725044.651785359] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725049.192414290] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=1.100
+[ee_precision_pose_plan_node-1] [INFO] [1782725049.208737285] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6339 y=-0.0065 z=0.4360 / target: x=0.3500 y=0.0000 z=1.1000
+[ee_precision_pose_plan_node-1] [INFO] [1782725049.208767292] [ee_precision_pose_plan_node]: Precision IK result: error=0.7222 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725049.208774083] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725053.218933523] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=0.200
+[ee_precision_pose_plan_node-1] [INFO] [1782725053.219427711] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3358 y=-0.0000 z=0.2123 / target: x=0.3500 y=0.0000 z=0.2000
+[ee_precision_pose_plan_node-1] [INFO] [1782725053.219447965] [ee_precision_pose_plan_node]: Precision IK result: error=0.0187 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782725053.247396903] [ee_precision_pose_plan_node]: Trajectory validation passed. points=20
+[ee_precision_pose_plan_node-1] [INFO] [1782725057.262753837] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=0.050
+[ee_precision_pose_plan_node-1] [INFO] [1782725057.263319180] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3436 y=-0.0000 z=0.0610 / target: x=0.3500 y=0.0000 z=0.0500
+[ee_precision_pose_plan_node-1] [INFO] [1782725057.263334707] [ee_precision_pose_plan_node]: Precision IK result: error=0.0127 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782725057.288769790] [ee_precision_pose_plan_node]: Trajectory validation passed. points=36
+[ee_precision_pose_plan_node-1] [INFO] [1782725061.305274545] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=-0.100
+[ee_precision_pose_plan_node-1] [INFO] [1782725061.306176481] [ee_precision_pose_plan_node]: Final reached EE position: x=0.3670 y=0.0000 z=-0.0454 / target: x=0.3500 y=0.0000 z=-0.1000
+[ee_precision_pose_plan_node-1] [INFO] [1782725061.306191864] [ee_precision_pose_plan_node]: Precision IK result: error=0.0572 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725061.306197315] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725065.370431280] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=-0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782725065.371626463] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4779 y=0.0002 z=0.0449 / target: x=0.3500 y=0.0000 z=-0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782725065.371640736] [ee_precision_pose_plan_node]: Precision IK result: error=0.3214 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725065.371646438] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725069.423818909] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=-0.400
+[ee_precision_pose_plan_node-1] [INFO] [1782725069.425302274] [ee_precision_pose_plan_node]: Final reached EE position: x=0.5822 y=0.0005 z=0.2009 / target: x=0.3500 y=0.0000 z=-0.4000
+[ee_precision_pose_plan_node-1] [INFO] [1782725069.425321442] [ee_precision_pose_plan_node]: Precision IK result: error=0.6442 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725069.425329014] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725073.885873786] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.350 y=0.000 z=-0.550
+[ee_precision_pose_plan_node-1] [INFO] [1782725073.902776122] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6298 y=0.0004 z=0.3982 / target: x=0.3500 y=0.0000 z=-0.5500
+[ee_precision_pose_plan_node-1] [INFO] [1782725073.902812465] [ee_precision_pose_plan_node]: Precision IK result: error=0.9886 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725073.902818956] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725077.926958305] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.800 y=-0.500 z=0.050
+[ee_precision_pose_plan_node-1] [INFO] [1782725077.945388780] [ee_precision_pose_plan_node]: Final reached EE position: x=0.5318 y=-0.3445 z=0.4504 / target: x=0.8000 y=-0.5000 z=0.0500
+[ee_precision_pose_plan_node-1] [INFO] [1782725077.945440745] [ee_precision_pose_plan_node]: Precision IK result: error=0.5063 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725077.945449449] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725081.972538600] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.800 y=0.500 z=0.050
+[ee_precision_pose_plan_node-1] [INFO] [1782725081.989822895] [ee_precision_pose_plan_node]: Final reached EE position: x=0.5318 y=0.3445 z=0.4503 / target: x=0.8000 y=0.5000 z=0.0500
+[ee_precision_pose_plan_node-1] [INFO] [1782725081.989871424] [ee_precision_pose_plan_node]: Precision IK result: error=0.5063 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725081.989880845] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725086.024862964] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.800 y=-0.500 z=0.750
+[ee_precision_pose_plan_node-1] [INFO] [1782725086.046012649] [ee_precision_pose_plan_node]: Final reached EE position: x=0.5253 y=-0.3531 z=0.4598 / target: x=0.8000 y=-0.5000 z=0.7500
+[ee_precision_pose_plan_node-1] [INFO] [1782725086.046048425] [ee_precision_pose_plan_node]: Precision IK result: error=0.4258 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725086.046055770] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782725090.058383423] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.800 y=0.500 z=0.750
+[ee_precision_pose_plan_node-1] [INFO] [1782725090.075686360] [ee_precision_pose_plan_node]: Final reached EE position: x=0.5252 y=0.3531 z=0.4597 / target: x=0.8000 y=0.5000 z=0.7500
+[ee_precision_pose_plan_node-1] [INFO] [1782725090.075711450] [ee_precision_pose_plan_node]: Precision IK result: error=0.4258 m, solved=false
+[ee_precision_pose_plan_node-1] [ERROR] [1782725090.075717779] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.

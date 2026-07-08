@@ -1,0 +1,45 @@
+===== HOME WIRING SNAPSHOT =====
+2026. 07. 05. (일) 15:55:46 KST
+
+Expected saved home:
+JOINT4 can11 0x141 = 30.480000 deg
+JOINT5 can11 0x142 = 0.380000 deg
+JOINT6 can11 0x143 = 35.136667 deg
+
+===== actual can11 0x141 / JOINT4 =====
+data: 30.47
+---
+
+===== actual can11 0x142 / JOINT5 =====
+data: 0.38
+---
+
+===== actual can11 0x143 / JOINT6 =====
+data: -20.668333333333333
+---
+
+===== /joint_states =====
+header:
+  stamp:
+    sec: 1783234572
+    nanosec: 600225207
+  frame_id: ''
+name:
+- JOINT1
+- JOINT2
+- JOINT3
+- JOINT4
+- JOINT5
+- JOINT6
+- JOINT7
+position:
+- 9.690455858002607e-06
+- 0.3853880913853864
+- -0.3772626140909531
+- -0.0010471975511965755
+- -0.0005235987755982984
+- -1.7568190416514669
+- 10.366291235249154
+velocity: []
+effort: []
+---

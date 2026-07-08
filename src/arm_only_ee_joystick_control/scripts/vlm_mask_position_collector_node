@@ -1,0 +1,548 @@
+#!/usr/bin/env python3
+import json
+import time
+from pathlib import Path
+
+import numpy as np
+
+import rclpy
+from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
+from rclpy.time import Time
+
+from sensor_msgs.msg import Image, CameraInfo
+from geometry_msgs.msg import PointStamped
+from visualization_msgs.msg import Marker, MarkerArray
+
+import tf2_ros
+
+try:
+    import cv2
+except Exception:
+    cv2 = None
+
+
+def quat_rotate(qx, qy, qz, qw, v):
+    x, y, z = v
+
+    uvx = qy * z - qz * y
+    uvy = qz * x - qx * z
+    uvz = qx * y - qy * x
+
+    uuvx = qy * uvz - qz * uvy
+    uuvy = qz * uvx - qx * uvz
+    uuvz = qx * uvy - qy * uvx
+
+    return (
+        x + 2.0 * (qw * uvx + uuvx),
+        y + 2.0 * (qw * uvy + uuvy),
+        z + 2.0 * (qw * uvz + uuvz),
+    )
+
+
+def imgmsg_to_numpy(msg):
+    h, w = msg.height, msg.width
+    enc = msg.encoding.lower()
+
+    if enc in ("bgr8", "rgb8", "8uc3"):
+        arr = np.frombuffer(msg.data, dtype=np.uint8).reshape(h, w, 3).copy()
+        if enc == "rgb8":
+            arr = arr[:, :, ::-1].copy()
+        return arr
+
+    if enc in ("bgra8", "rgba8", "8uc4"):
+        arr = np.frombuffer(msg.data, dtype=np.uint8).reshape(h, w, 4).copy()
+        if enc == "rgba8":
+            arr = arr[:, :, [2, 1, 0, 3]].copy()
+        return arr[:, :, :3].copy()
+
+    if enc in ("mono8", "8uc1"):
+        arr = np.frombuffer(msg.data, dtype=np.uint8).reshape(h, w).copy()
+        return np.stack([arr, arr, arr], axis=-1)
+
+    raise ValueError(f"unsupported RGB encoding: {msg.encoding}")
+
+
+def depthmsg_to_numpy(msg):
+    h, w = msg.height, msg.width
+    enc = msg.encoding.lower()
+
+    if enc == "16uc1":
+        return np.frombuffer(msg.data, dtype=np.uint16).reshape(h, w).astype(np.float32) * 0.001
+
+    if enc == "32fc1":
+        return np.frombuffer(msg.data, dtype=np.float32).reshape(h, w).copy()
+
+    raise ValueError(f"unsupported depth encoding: {msg.encoding}")
+
+
+def numpy_to_imgmsg(arr, frame_id, stamp, encoding):
+    msg = Image()
+    msg.header.frame_id = frame_id
+    msg.header.stamp = stamp
+    msg.height = int(arr.shape[0])
+    msg.width = int(arr.shape[1])
+    msg.encoding = encoding
+    msg.is_bigendian = 0
+
+    if arr.ndim == 2:
+        msg.step = int(arr.shape[1])
+    else:
+        msg.step = int(arr.shape[1] * arr.shape[2])
+
+    msg.data = arr.tobytes()
+    return msg
+
+
+class VLMMaskPositionCollector(Node):
+    def __init__(self):
+        super().__init__("vlm_mask_position_collector_node")
+
+        self.declare_parameter("rgb_topic", "/camera/camera/color/image_raw")
+        self.declare_parameter("depth_topic", "/camera/camera/aligned_depth_to_color/image_raw")
+        self.declare_parameter("info_topic", "/camera/camera/color/camera_info")
+        self.declare_parameter("target_frame", "ARM_BASE_LINK")
+        self.declare_parameter("source_frame_fallback", "camera_color_optical_frame")
+
+        # mode: manual_bbox | color | qwen_json
+        self.declare_parameter("mode", "manual_bbox")
+        self.declare_parameter("target_color", "blue")
+        self.declare_parameter("manual_bbox", [250, 180, 390, 330])
+        self.declare_parameter("qwen_bbox_json", "")
+        self.declare_parameter("command", "")
+
+        self.declare_parameter("target_topic", "/ee_obstacle/target_point")
+        self.declare_parameter("publish_enabled", False)
+        self.declare_parameter("publish_once", True)
+        self.declare_parameter("process_period", 1.0)
+
+        self.declare_parameter("raw_depth_min", 0.10)
+        self.declare_parameter("raw_depth_max", 3.00)
+        self.declare_parameter("min_mask_pixels", 50)
+        self.declare_parameter("min_valid_depth_pixels", 30)
+        self.declare_parameter("max_points_for_stats", 6000)
+
+        self.declare_parameter("arm_x_min", 0.10)
+        self.declare_parameter("arm_x_max", 1.08)
+        self.declare_parameter("arm_y_abs_max", 0.60)
+        self.declare_parameter("arm_z_min", -0.05)
+        self.declare_parameter("arm_z_max", 0.90)
+
+        self.declare_parameter("save_enabled", True)
+        self.declare_parameter("save_once", True)
+        self.declare_parameter("save_dir", str(Path.home() / "DROK_vlm_dataset"))
+
+        self.rgb_topic = self.get_parameter("rgb_topic").value
+        self.depth_topic = self.get_parameter("depth_topic").value
+        self.info_topic = self.get_parameter("info_topic").value
+        self.target_frame = self.get_parameter("target_frame").value
+        self.source_frame_fallback = self.get_parameter("source_frame_fallback").value
+
+        self.mode = self.get_parameter("mode").value
+        self.target_color = self.get_parameter("target_color").value
+        self.command = self.get_parameter("command").value
+
+        self.target_topic = self.get_parameter("target_topic").value
+        self.publish_enabled = bool(self.get_parameter("publish_enabled").value)
+        self.publish_once = bool(self.get_parameter("publish_once").value)
+        self.process_period = float(self.get_parameter("process_period").value)
+
+        self.raw_depth_min = float(self.get_parameter("raw_depth_min").value)
+        self.raw_depth_max = float(self.get_parameter("raw_depth_max").value)
+        self.min_mask_pixels = int(self.get_parameter("min_mask_pixels").value)
+        self.min_valid_depth_pixels = int(self.get_parameter("min_valid_depth_pixels").value)
+        self.max_points_for_stats = int(self.get_parameter("max_points_for_stats").value)
+
+        self.arm_x_min = float(self.get_parameter("arm_x_min").value)
+        self.arm_x_max = float(self.get_parameter("arm_x_max").value)
+        self.arm_y_abs_max = float(self.get_parameter("arm_y_abs_max").value)
+        self.arm_z_min = float(self.get_parameter("arm_z_min").value)
+        self.arm_z_max = float(self.get_parameter("arm_z_max").value)
+
+        self.save_enabled = bool(self.get_parameter("save_enabled").value)
+        self.save_once = bool(self.get_parameter("save_once").value)
+        self.save_dir = Path(self.get_parameter("save_dir").value).expanduser()
+
+        self.info = None
+        self.last_rgb_msg = None
+        self.last_depth_msg = None
+        self.last_process = 0.0
+        self.already_published = False
+        self.already_saved = False
+
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
+
+        self.target_pub = self.create_publisher(PointStamped, self.target_topic, 10)
+        self.mask_pub = self.create_publisher(Image, "/vlm_scene/mask_image", 10)
+        self.annotated_pub = self.create_publisher(Image, "/vlm_scene/annotated_image", 10)
+        self.marker_pub = self.create_publisher(MarkerArray, "/vlm_scene/markers", 10)
+
+        self.create_subscription(CameraInfo, self.info_topic, self.info_cb, qos_profile_sensor_data)
+        self.create_subscription(Image, self.rgb_topic, self.rgb_cb, qos_profile_sensor_data)
+        self.create_subscription(Image, self.depth_topic, self.depth_cb, qos_profile_sensor_data)
+
+        self.timer = self.create_timer(0.1, self.process)
+
+        self.get_logger().info("vlm_mask_position_collector_node started")
+        self.get_logger().info(f"mode={self.mode}, target_color={self.target_color}, target_topic={self.target_topic}")
+        self.get_logger().info(f"save_dir={self.save_dir}, save_enabled={self.save_enabled}")
+
+        if cv2 is None:
+            self.get_logger().warn("cv2 not available. Install python3-opencv for color mode and png saving.")
+
+    def info_cb(self, msg):
+        self.info = msg
+
+    def rgb_cb(self, msg):
+        self.last_rgb_msg = msg
+
+    def depth_cb(self, msg):
+        self.last_depth_msg = msg
+
+    def mask_from_manual_bbox(self, h, w):
+        bbox = list(self.get_parameter("manual_bbox").value)
+        if len(bbox) != 4:
+            raise ValueError("manual_bbox must be [x1, y1, x2, y2]")
+
+        x1, y1, x2, y2 = [int(v) for v in bbox]
+        x1, x2 = sorted([max(0, min(w - 1, x1)), max(0, min(w, x2))])
+        y1, y2 = sorted([max(0, min(h - 1, y1)), max(0, min(h, y2))])
+
+        mask = np.zeros((h, w), dtype=np.uint8)
+        mask[y1:y2, x1:x2] = 255
+
+        return mask, [x1, y1, x2, y2]
+
+    def mask_from_qwen_json(self, h, w):
+        text = str(self.get_parameter("qwen_bbox_json").value).strip()
+        if not text:
+            raise ValueError("qwen_bbox_json is empty")
+
+        data = json.loads(text)
+
+        if "bbox_2d" in data:
+            bbox = data["bbox_2d"]
+        elif "target" in data and "bbox_2d" in data["target"]:
+            bbox = data["target"]["bbox_2d"]
+        else:
+            raise ValueError("JSON must contain bbox_2d or target.bbox_2d")
+
+        x1, y1, x2, y2 = [int(v) for v in bbox]
+        x1, x2 = sorted([max(0, min(w - 1, x1)), max(0, min(w, x2))])
+        y1, y2 = sorted([max(0, min(h - 1, y1)), max(0, min(h, y2))])
+
+        mask = np.zeros((h, w), dtype=np.uint8)
+        mask[y1:y2, x1:x2] = 255
+
+        return mask, [x1, y1, x2, y2]
+
+    def mask_from_color(self, bgr):
+        if cv2 is None:
+            raise RuntimeError("cv2 is required for color mode")
+
+        hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
+        c = str(self.target_color).lower()
+
+        if c == "red":
+            m1 = cv2.inRange(hsv, np.array([0, 70, 40]), np.array([12, 255, 255]))
+            m2 = cv2.inRange(hsv, np.array([168, 70, 40]), np.array([180, 255, 255]))
+            mask = cv2.bitwise_or(m1, m2)
+        elif c == "blue":
+            mask = cv2.inRange(hsv, np.array([90, 60, 40]), np.array([135, 255, 255]))
+        elif c == "green":
+            mask = cv2.inRange(hsv, np.array([35, 50, 40]), np.array([90, 255, 255]))
+        elif c == "black":
+            mask = cv2.inRange(hsv, np.array([0, 0, 0]), np.array([180, 255, 70]))
+        elif c == "white":
+            mask = cv2.inRange(hsv, np.array([0, 0, 180]), np.array([180, 60, 255]))
+        else:
+            raise ValueError(f"unsupported target_color: {self.target_color}")
+
+        kernel = np.ones((5, 5), np.uint8)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+
+        num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(mask, 8)
+
+        if num_labels <= 1:
+            return mask, [0, 0, 0, 0]
+
+        largest = 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))
+        mask = np.where(labels == largest, 255, 0).astype(np.uint8)
+
+        x = int(stats[largest, cv2.CC_STAT_LEFT])
+        y = int(stats[largest, cv2.CC_STAT_TOP])
+        bw = int(stats[largest, cv2.CC_STAT_WIDTH])
+        bh = int(stats[largest, cv2.CC_STAT_HEIGHT])
+
+        return mask, [x, y, x + bw, y + bh]
+
+    def process(self):
+        if self.info is None or self.last_rgb_msg is None or self.last_depth_msg is None:
+            return
+
+        now = time.time()
+        if now - self.last_process < self.process_period:
+            return
+
+        self.last_process = now
+
+        try:
+            bgr = imgmsg_to_numpy(self.last_rgb_msg)
+            depth = depthmsg_to_numpy(self.last_depth_msg)
+        except Exception as e:
+            self.get_logger().warn(str(e))
+            return
+
+        h, w = depth.shape[:2]
+
+        if bgr.shape[0] != h or bgr.shape[1] != w:
+            self.get_logger().warn(f"RGB/depth size mismatch: rgb={bgr.shape[1]}x{bgr.shape[0]}, depth={w}x{h}")
+            return
+
+        try:
+            if self.mode == "manual_bbox":
+                mask, bbox = self.mask_from_manual_bbox(h, w)
+            elif self.mode == "color":
+                mask, bbox = self.mask_from_color(bgr)
+            elif self.mode == "qwen_json":
+                mask, bbox = self.mask_from_qwen_json(h, w)
+            else:
+                self.get_logger().warn(f"unknown mode: {self.mode}")
+                return
+        except Exception as e:
+            self.get_logger().warn(f"mask generation failed: {e}")
+            return
+
+        mask_bool = mask > 0
+        mask_pixels = int(np.count_nonzero(mask_bool))
+
+        if mask_pixels < self.min_mask_pixels:
+            self.get_logger().warn(f"mask too small: {mask_pixels} pixels")
+            self.publish_debug_images(bgr, mask, bbox)
+            return
+
+        valid = mask_bool & np.isfinite(depth) & (depth >= self.raw_depth_min) & (depth <= self.raw_depth_max)
+        valid_count = int(np.count_nonzero(valid))
+
+        if valid_count < self.min_valid_depth_pixels:
+            self.get_logger().warn(f"not enough valid depth in mask: {valid_count} pixels")
+            self.publish_debug_images(bgr, mask, bbox)
+            return
+
+        ys, xs = np.where(valid)
+        zs = depth[ys, xs]
+
+        if xs.size > self.max_points_for_stats:
+            idx = np.linspace(0, xs.size - 1, self.max_points_for_stats).astype(np.int64)
+            xs, ys, zs = xs[idx], ys[idx], zs[idx]
+
+        fx = float(self.info.k[0])
+        fy = float(self.info.k[4])
+        cx = float(self.info.k[2])
+        cy = float(self.info.k[5])
+
+        cam_x = (xs.astype(np.float32) - cx) * zs / fx
+        cam_y = (ys.astype(np.float32) - cy) * zs / fy
+        cam_z = zs
+
+        cam_center = np.array([
+            np.median(cam_x),
+            np.median(cam_y),
+            np.median(cam_z)
+        ], dtype=np.float32)
+
+        source_frame = self.last_depth_msg.header.frame_id or self.source_frame_fallback
+
+        try:
+            tf = self.tf_buffer.lookup_transform(
+                self.target_frame,
+                source_frame,
+                Time()
+            )
+        except Exception as e:
+            self.get_logger().warn(f"TF not ready: {self.target_frame} <- {source_frame}: {e}")
+            self.publish_debug_images(bgr, mask, bbox)
+            return
+
+        t = tf.transform.translation
+        q = tf.transform.rotation
+
+        bx, by, bz = quat_rotate(q.x, q.y, q.z, q.w, cam_center)
+        bx += t.x
+        by += t.y
+        bz += t.z
+
+        base_points = []
+        step = max(1, len(cam_x) // 1000)
+
+        for vx, vy, vz in zip(cam_x[::step], cam_y[::step], cam_z[::step]):
+            px, py, pz = quat_rotate(q.x, q.y, q.z, q.w, (float(vx), float(vy), float(vz)))
+            base_points.append((px + t.x, py + t.y, pz + t.z))
+
+        base_points = np.array(base_points, dtype=np.float32)
+        mins = base_points.min(axis=0)
+        maxs = base_points.max(axis=0)
+        size = np.maximum(maxs - mins, np.array([0.02, 0.02, 0.02], dtype=np.float32))
+
+        inside_workspace = (
+            self.arm_x_min <= bx <= self.arm_x_max and
+            -self.arm_y_abs_max <= by <= self.arm_y_abs_max and
+            self.arm_z_min <= bz <= self.arm_z_max
+        )
+
+        print("----")
+        print(f"mode={self.mode}, command={self.command}")
+        print(f"bbox_2d={bbox}, mask_pixels={mask_pixels}, valid_depth_pixels={valid_count}")
+        print(f"median_depth={float(np.median(zs)):.3f} m")
+        print(f"{source_frame}: x={cam_center[0]:.3f}, y={cam_center[1]:.3f}, z={cam_center[2]:.3f}")
+        print(f"{self.target_frame}: x={bx:.3f}, y={by:.3f}, z={bz:.3f}")
+        print(f"visible_size_base: x={size[0]:.3f}, y={size[1]:.3f}, z={size[2]:.3f}")
+
+        self.publish_debug_images(bgr, mask, bbox)
+        self.publish_markers((bx, by, bz), size, inside_workspace)
+
+        metadata = {
+            "mode": self.mode,
+            "target_color": self.target_color,
+            "command": self.command,
+            "bbox_2d": bbox,
+            "mask_pixels": mask_pixels,
+            "valid_depth_pixels": valid_count,
+            "source_frame": source_frame,
+            "target_frame": self.target_frame,
+            "camera_xyz_median": [float(cam_center[0]), float(cam_center[1]), float(cam_center[2])],
+            "base_xyz_median": [float(bx), float(by), float(bz)],
+            "visible_size_base": [float(size[0]), float(size[1]), float(size[2])],
+            "inside_workspace": bool(inside_workspace),
+        }
+
+        if self.save_enabled and not (self.save_once and self.already_saved):
+            self.save_sample(bgr, depth, mask, metadata)
+            self.already_saved = True
+
+        if not inside_workspace:
+            print("[NO TARGET] outside robot workspace")
+            return
+
+        if self.publish_enabled and not (self.publish_once and self.already_published):
+            out = PointStamped()
+            out.header.stamp = self.get_clock().now().to_msg()
+            out.header.frame_id = self.target_frame
+            out.point.x = float(bx)
+            out.point.y = float(by)
+            out.point.z = float(bz)
+
+            self.target_pub.publish(out)
+            self.already_published = True
+
+            print(f"[PUBLISHED] {self.target_topic}: x={bx:.3f}, y={by:.3f}, z={bz:.3f}")
+        else:
+            print("[PRINT ONLY] publish_enabled=false or already published")
+
+    def publish_debug_images(self, bgr, mask, bbox):
+        stamp = self.get_clock().now().to_msg()
+        frame_id = self.last_rgb_msg.header.frame_id or self.source_frame_fallback
+
+        self.mask_pub.publish(numpy_to_imgmsg(mask.astype(np.uint8), frame_id, stamp, "mono8"))
+
+        annotated = bgr.copy()
+        x1, y1, x2, y2 = bbox
+
+        if cv2 is not None:
+            cv2.rectangle(annotated, (x1, y1), (x2, y2), (0, 255, 255), 2)
+            cv2.putText(
+                annotated,
+                f"{self.mode}:{self.target_color}",
+                (max(0, x1), max(20, y1 - 8)),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.6,
+                (0, 255, 255),
+                2,
+            )
+
+        self.annotated_pub.publish(numpy_to_imgmsg(annotated.astype(np.uint8), frame_id, stamp, "bgr8"))
+
+    def publish_markers(self, center, size, inside_workspace):
+        stamp = self.get_clock().now().to_msg()
+        arr = MarkerArray()
+
+        sphere = Marker()
+        sphere.header.frame_id = self.target_frame
+        sphere.header.stamp = stamp
+        sphere.ns = "vlm_target"
+        sphere.id = 0
+        sphere.type = Marker.SPHERE
+        sphere.action = Marker.ADD
+        sphere.pose.position.x = float(center[0])
+        sphere.pose.position.y = float(center[1])
+        sphere.pose.position.z = float(center[2])
+        sphere.pose.orientation.w = 1.0
+        sphere.scale.x = 0.035
+        sphere.scale.y = 0.035
+        sphere.scale.z = 0.035
+        sphere.color.r = 0.0 if inside_workspace else 1.0
+        sphere.color.g = 1.0 if inside_workspace else 0.0
+        sphere.color.b = 0.0
+        sphere.color.a = 1.0
+        arr.markers.append(sphere)
+
+        cube = Marker()
+        cube.header.frame_id = self.target_frame
+        cube.header.stamp = stamp
+        cube.ns = "vlm_visible_bbox"
+        cube.id = 1
+        cube.type = Marker.CUBE
+        cube.action = Marker.ADD
+        cube.pose.position.x = float(center[0])
+        cube.pose.position.y = float(center[1])
+        cube.pose.position.z = float(center[2])
+        cube.pose.orientation.w = 1.0
+        cube.scale.x = float(size[0])
+        cube.scale.y = float(size[1])
+        cube.scale.z = float(size[2])
+        cube.color.r = 0.2
+        cube.color.g = 0.6
+        cube.color.b = 1.0
+        cube.color.a = 0.35
+        arr.markers.append(cube)
+
+        self.marker_pub.publish(arr)
+
+    def save_sample(self, bgr, depth, mask, metadata):
+        self.save_dir.mkdir(parents=True, exist_ok=True)
+
+        ts = time.strftime("%Y%m%d_%H%M%S") + f"_{int(time.time() * 1000) % 1000:03d}"
+        base = self.save_dir / ts
+
+        np.save(str(base) + "_depth_m.npy", depth)
+        np.save(str(base) + "_mask.npy", mask)
+
+        if cv2 is not None:
+            cv2.imwrite(str(base) + "_rgb.png", bgr)
+            cv2.imwrite(str(base) + "_mask.png", mask)
+
+        with open(str(base) + "_meta.json", "w", encoding="utf-8") as f:
+            json.dump(metadata, f, ensure_ascii=False, indent=2)
+
+        print(f"[SAVED] {base}_meta.json")
+
+
+def main():
+    rclpy.init()
+    node = VLMMaskPositionCollector()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+
+    node.destroy_node()
+
+    if rclpy.ok():
+        rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    main()

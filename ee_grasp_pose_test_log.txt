@@ -1,0 +1,34 @@
+[INFO] [launch]: All log files can be found below /home/hgui/.ros/log/2026-06-29-19-46-38-269767-hgui-940XGK-24389
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ee_grasp_pose_plan_node-1]: process started with pid [24391]
+[ee_grasp_pose_plan_node-1] [WARN] [1782729998.347031797] [ee_grasp_pose_plan_node]: SAFE DEFAULT: execute_plan=false. This node plans/displays only unless explicitly enabled.
+[ee_grasp_pose_plan_node-1] [INFO] [1782729998.847258932] [ee_grasp_pose_plan_node]: Initializing MoveGroupInterface...
+[ee_grasp_pose_plan_node-1] [WARN] [1782729998.847654018] [rcl.logging_rosout]: Publisher already registered for provided node name. If this is due to multiple nodes with the same name then all logs for that logger name will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.348616242] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0 seconds
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.348649092] [moveit_robot_model.robot_model]: Loading robot model 'arm_only_gripper'...
+[ee_grasp_pose_plan_node-1] [WARN] [1782729999.348694214] [moveit_robot_model.robot_model]: Link drive_gear has visual geometry but no collision geometry. Collision geometry will be left empty. Fix your URDF file by explicitly specifying collision geometry.
+[ee_grasp_pose_plan_node-1] [WARN] [1782729999.350232430] [moveit_ros.robot_model_loader]: No kinematics plugins defined. Fill and load kinematics.yaml!
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354231697] [move_group_interface]: Ready to take commands for planning group arm.
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354268965] [ee_grasp_pose_plan_node]: MoveIt initialized.
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354272513] [ee_grasp_pose_plan_node]:   planning_group = arm
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354274443] [ee_grasp_pose_plan_node]:   ee_link        = gripper_tcp
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354276216] [ee_grasp_pose_plan_node]:   planning_frame = ARM_BASE_LINK
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354278012] [ee_grasp_pose_plan_node]:   execute_plan   = false
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354279882] [ee_grasp_pose_plan_node]:   tool_axis      = x
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354281897] [ee_grasp_pose_plan_node]:   approach_world = [0.500 0.000 -0.866]
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354286923] [ee_grasp_pose_plan_node]:   ik_position_tolerance    = 0.0100 m
+[ee_grasp_pose_plan_node-1] [INFO] [1782729999.354289171] [ee_grasp_pose_plan_node]:   ik_orientation_tolerance = 0.3500 rad
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.828255053] [ee_grasp_pose_plan_node]: Received grasp target point frame [ARM_BASE_LINK]: x=0.500 y=0.000 z=0.300
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.828910267] [moveit_ros.current_state_monitor]: Listening to joint states on topic 'joint_states'
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.828967204] [ee_grasp_pose_plan_node]: Starting 3-stage grasp IK.
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.830525942] [ee_grasp_pose_plan_node]: [Stage1 full position IK] final pos_error=0.0095 m, ori_error=0.6213 rad, solved=true
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.832692442] [ee_grasp_pose_plan_node]: [Stage2 wrist orientation refine with position hold] final pos_error=0.0081 m, ori_error=0.0542 rad, solved=true
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.832734938] [ee_grasp_pose_plan_node]: [Stage3 full pose correction] final pos_error=0.0081 m, ori_error=0.0542 rad, solved=true
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.832741424] [ee_grasp_pose_plan_node]: 3-stage IK result: pos_error=0.0081 m, ori_error=0.0542 rad, solved=true
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.833107688] [move_group_interface]: MoveGroup action client/server ready
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.834390299] [move_group_interface]: Planning request accepted
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.873651359] [move_group_interface]: Planning request complete!
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.874022152] [move_group_interface]: time taken to generate plan: 0.0185326 seconds
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.874147465] [ee_grasp_pose_plan_node]: Trajectory validation passed. points=162
+[ee_grasp_pose_plan_node-1] [INFO] [1782730018.874473769] [ee_grasp_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_grasp_pose_plan_node-1] [WARN] [1782730018.874515191] [ee_grasp_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.

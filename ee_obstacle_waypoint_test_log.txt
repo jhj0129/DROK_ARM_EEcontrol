@@ -1,0 +1,51 @@
+[INFO] [launch]: All log files can be found below /home/hgui/.ros/log/2026-06-29-21-02-37-272046-hgui-940XGK-31951
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ee_obstacle_waypoint_plan_node-1]: process started with pid [31953]
+[ee_obstacle_waypoint_plan_node-1] [WARN] [1782734557.410001123] [ee_obstacle_waypoint_plan_node]: SAFE DEFAULT: execute_plan=false. This node plans/displays only unless explicitly enabled.
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.910237678] [ee_obstacle_waypoint_plan_node]: Initializing MoveGroupInterface...
+[ee_obstacle_waypoint_plan_node-1] [WARN] [1782734557.910871328] [rcl.logging_rosout]: Publisher already registered for provided node name. If this is due to multiple nodes with the same name then all logs for that logger name will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.945833902] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0 seconds
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.945878025] [moveit_robot_model.robot_model]: Loading robot model 'arm_only_gripper'...
+[ee_obstacle_waypoint_plan_node-1] [WARN] [1782734557.945962837] [moveit_robot_model.robot_model]: Link drive_gear has visual geometry but no collision geometry. Collision geometry will be left empty. Fix your URDF file by explicitly specifying collision geometry.
+[ee_obstacle_waypoint_plan_node-1] [WARN] [1782734557.948959792] [moveit_ros.robot_model_loader]: No kinematics plugins defined. Fill and load kinematics.yaml!
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.955634545] [move_group_interface]: Ready to take commands for planning group arm.
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.955668785] [ee_obstacle_waypoint_plan_node]: MoveIt initialized.
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.955674301] [ee_obstacle_waypoint_plan_node]:   planning_group = arm
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.955677640] [ee_obstacle_waypoint_plan_node]:   ee_link        = gripper_tcp
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.955680679] [ee_obstacle_waypoint_plan_node]:   planning_frame = ARM_BASE_LINK
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.955683766] [ee_obstacle_waypoint_plan_node]:   execute_plan   = false
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.955686740] [ee_obstacle_waypoint_plan_node]:   ik_position_tolerance = 0.0100 m
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.955694711] [ee_obstacle_waypoint_plan_node]:   obstacle center = [0.550 0.000 0.200], size = [0.220 0.600 0.400], margin=0.040, clearance=0.060
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734557.956346023] [ee_obstacle_waypoint_plan_node]: Applied collision box [front_box_obstacle] to PlanningScene.
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.627499912] [ee_obstacle_waypoint_plan_node]: Applied collision box [front_box_obstacle] to PlanningScene.
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.628267300] [moveit_ros.current_state_monitor]: Listening to joint states on topic 'joint_states'
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.628361025] [ee_obstacle_waypoint_plan_node]: Received obstacle-aware target frame [ARM_BASE_LINK]: x=0.650 y=0.000 z=0.520
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.628374288] [ee_obstacle_waypoint_plan_node]: Current EE position: x=0.201 y=-0.000 z=0.170
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.628390566] [ee_obstacle_waypoint_plan_node]: Generated 2 waypoint target(s).
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.628396564] [ee_obstacle_waypoint_plan_node]:   WP1: x=0.201 y=-0.000 z=0.520
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.628402641] [ee_obstacle_waypoint_plan_node]:   WP2: x=0.650 y=0.000 z=0.520
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.629838576] [ee_obstacle_waypoint_plan_node]: [Segment 1] IK target error=0.0078 m, solved=true
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.629989472] [move_group_interface]: MoveGroup action client/server ready
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.630988883] [move_group_interface]: Planning request accepted
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.653585414] [move_group_interface]: Planning request complete!
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.653816476] [move_group_interface]: time taken to generate plan: 0.0122852 seconds
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.653858964] [ee_obstacle_waypoint_plan_node]: [Segment 1] Trajectory validation passed. points=62
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.653931688] [ee_obstacle_waypoint_plan_node]: [Segment 1] SUCCESS with JOINT6 = 0.0000 rad
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.654031629] [ee_obstacle_waypoint_plan_node]: [Segment 2] q6 candidate attempt 1/8: JOINT6 = -0.0008 rad
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.655307503] [ee_obstacle_waypoint_plan_node]: [Segment 2] IK target error=0.0068 m, solved=true
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.655447191] [move_group_interface]: MoveGroup action client/server ready
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.655742010] [move_group_interface]: Planning request accepted
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.687485674] [move_group_interface]: Planning request aborted
+[ee_obstacle_waypoint_plan_node-1] [ERROR] [1782734576.688340552] [move_group_interface]: MoveGroupInterface::plan() failed or timeout reached
+[ee_obstacle_waypoint_plan_node-1] [ERROR] [1782734576.688418867] [ee_obstacle_waypoint_plan_node]: [Segment 2] MoveIt planning failed.
+[ee_obstacle_waypoint_plan_node-1] [WARN] [1782734576.688438732] [ee_obstacle_waypoint_plan_node]: [Segment 2] planning failed with JOINT6 = -0.0008 rad. Trying next candidate.
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.688471230] [ee_obstacle_waypoint_plan_node]: [Segment 2] q6 candidate attempt 2/8: JOINT6 = -1.5708 rad
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.689882913] [ee_obstacle_waypoint_plan_node]: [Segment 2] IK target error=0.0068 m, solved=true
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.689993540] [move_group_interface]: MoveGroup action client/server ready
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.690439943] [move_group_interface]: Planning request accepted
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.723796589] [move_group_interface]: Planning request complete!
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.724825987] [move_group_interface]: time taken to generate plan: 0.0211327 seconds
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.724859798] [ee_obstacle_waypoint_plan_node]: [Segment 2] Trajectory validation passed. points=112
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.724927424] [ee_obstacle_waypoint_plan_node]: [Segment 2] SUCCESS with JOINT6 = -1.5708 rad
+[ee_obstacle_waypoint_plan_node-1] [INFO] [1782734576.725197535] [ee_obstacle_waypoint_plan_node]: Published 2 planned segment(s) to /display_planned_path.
+[ee_obstacle_waypoint_plan_node-1] [WARN] [1782734576.725215608] [ee_obstacle_waypoint_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.

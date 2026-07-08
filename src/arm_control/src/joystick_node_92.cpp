@@ -365,16 +365,24 @@ private:
 
         const double deg2rad = M_PI / 180.0;
 
-        // 손으로 맞춘 실제 Home raw angle
-        const double home_141 = 5.109444444444445;  // JOINT1 real home recalibrated 2026-07-05
-        const double home_142 = 33.330833;
-        const double home_143 = -0.030000;
-        const double home_144 = 21.615833;
+        // Shared real robot home parameters.
+        // Pass src/arm_control/config/real_home.yaml with --ros-args --params-file.
+        auto get_home_param = [this](const std::string& name, double default_value) -> double {
+            if (!this->has_parameter(name)) {
+                this->declare_parameter<double>(name, default_value);
+            }
+            return this->get_parameter(name).as_double();
+        };
 
-        const double home_11_141 = 30.480000;
-        const double home_11_142 = 0.380000;
-        const double home_11_143 = -20.668333333333333;  // JOINT6 wiring-safe home measured 2026-07-05
-        const double home_11_144 = 12.150000;
+        const double home_141 = get_home_param("home_can10_0x141", 4.6525);
+        const double home_142 = get_home_param("home_can10_0x142", 33.330833);
+        const double home_143 = get_home_param("home_can10_0x143", -0.030000);
+        const double home_144 = get_home_param("home_can10_0x144", 21.615833);
+
+        const double home_11_141 = get_home_param("home_can11_0x141", 30.480000);
+        const double home_11_142 = get_home_param("home_can11_0x142", 0.380000);
+        const double home_11_143 = get_home_param("home_can11_0x143", -20.668333333333333);
+        const double home_11_144 = get_home_param("home_can11_0x144", 12.150000);
 
         // MoveIt에서 쓰는 Home 기준
         const double q1_home = 0.0;

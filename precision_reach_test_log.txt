@@ -1,0 +1,159 @@
+[INFO] [launch]: All log files can be found below /home/hgui/.ros/log/2026-06-29-18-45-09-694722-hgui-940XGK-19321
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [ee_precision_pose_plan_node-1]: process started with pid [19323]
+[ee_precision_pose_plan_node-1] [WARN] [1782726309.772460025] [ee_precision_pose_plan_node]: SAFE DEFAULT: execute_plan=false. This node plans/displays only unless explicitly enabled.
+[ee_precision_pose_plan_node-1] [INFO] [1782726309.772554175] [ee_precision_pose_plan_node]: EE precision pose planning node created. Publish geometry_msgs/PointStamped to /ee_precision/target_point.
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.272735723] [ee_precision_pose_plan_node]: Initializing MoveGroupInterface...
+[ee_precision_pose_plan_node-1] [WARN] [1782726310.273178527] [rcl.logging_rosout]: Publisher already registered for provided node name. If this is due to multiple nodes with the same name then all logs for that logger name will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.770758731] [moveit_rdf_loader.rdf_loader]: Loaded robot model in 0 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.770789456] [moveit_robot_model.robot_model]: Loading robot model 'arm_only_gripper'...
+[ee_precision_pose_plan_node-1] [WARN] [1782726310.770842677] [moveit_robot_model.robot_model]: Link drive_gear has visual geometry but no collision geometry. Collision geometry will be left empty. Fix your URDF file by explicitly specifying collision geometry.
+[ee_precision_pose_plan_node-1] [WARN] [1782726310.772471408] [moveit_ros.robot_model_loader]: No kinematics plugins defined. Fill and load kinematics.yaml!
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.777256965] [move_group_interface]: Ready to take commands for planning group arm.
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.777664682] [moveit_ros.current_state_monitor]: Listening to joint states on topic 'joint_states'
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.827967881] [ee_precision_pose_plan_node]: MoveIt initialized.
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.827986050] [ee_precision_pose_plan_node]:   planning_group = arm
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.827988134] [ee_precision_pose_plan_node]:   ee_link        = gripper_tcp
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.827990185] [ee_precision_pose_plan_node]:   planning_frame = ARM_BASE_LINK
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.827991951] [ee_precision_pose_plan_node]:   execute_plan   = false
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.827993344] [ee_precision_pose_plan_node]: Mode 1 high-performance params:
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.827994823] [ee_precision_pose_plan_node]:   ik_position_tolerance = 0.0300 m
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.827999870] [ee_precision_pose_plan_node]:   ik_max_iterations     = 800
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.828001366] [ee_precision_pose_plan_node]:   ik_damping            = 0.0400
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.828003050] [ee_precision_pose_plan_node]:   ik_step_scale         = 0.8000
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.828004694] [ee_precision_pose_plan_node]:   nullspace_gain        = 0.0000
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.828006350] [ee_precision_pose_plan_node]:   continuity_gain       = 0.0000
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.828007827] [ee_precision_pose_plan_node]:   joint_limit_gain      = 0.0030
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.828009657] [ee_precision_pose_plan_node]:   max_joint_step        = 0.1200 rad
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.828011363] [ee_precision_pose_plan_node]:   max_goal_joint_delta  = 3.1400 rad
+[ee_precision_pose_plan_node-1] [INFO] [1782726310.828012892] [ee_precision_pose_plan_node]:   max_waypoint_jump     = 1.5000 rad
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.394881881] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.350 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.395697426] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4911 y=-0.3449 z=0.2601 / target: x=0.5000 y=-0.3500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.395729963] [ee_precision_pose_plan_node]: Precision IK result: error=0.0144 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.395865756] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.396735976] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.423222296] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.423940332] [move_group_interface]: time taken to generate plan: 0.018478 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.423993366] [ee_precision_pose_plan_node]: Trajectory validation passed. points=70
+[ee_precision_pose_plan_node-1] [INFO] [1782726320.424212390] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726320.424239086] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.736861774] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.450 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.737729045] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4960 y=-0.4469 z=0.2558 / target: x=0.5000 y=-0.4500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.737760782] [ee_precision_pose_plan_node]: Precision IK result: error=0.0077 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.737880873] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.738892974] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.774030157] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.774145823] [move_group_interface]: time taken to generate plan: 0.019425 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.774191713] [ee_precision_pose_plan_node]: Trajectory validation passed. points=80
+[ee_precision_pose_plan_node-1] [INFO] [1782726324.774357544] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726324.774381064] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.339200362] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.550 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.339898348] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4916 y=-0.5421 z=0.2627 / target: x=0.5000 y=-0.5500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.339915920] [ee_precision_pose_plan_node]: Precision IK result: error=0.0172 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.340005331] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.341261914] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.374925994] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.375994332] [move_group_interface]: time taken to generate plan: 0.0189483 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.376050916] [ee_precision_pose_plan_node]: Trajectory validation passed. points=90
+[ee_precision_pose_plan_node-1] [INFO] [1782726329.376143335] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726329.376156210] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.387510519] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.650 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.389791774] [ee_precision_pose_plan_node]: Final reached EE position: x=0.5230 y=-0.6308 z=0.2500 / target: x=0.5000 y=-0.6500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.389822192] [ee_precision_pose_plan_node]: Precision IK result: error=0.0300 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.389930872] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.390725460] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.428758445] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.429617118] [move_group_interface]: time taken to generate plan: 0.0215401 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.429665763] [ee_precision_pose_plan_node]: Trajectory validation passed. points=108
+[ee_precision_pose_plan_node-1] [INFO] [1782726333.429811846] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726333.429839787] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726337.411061538] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.750 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726337.445003823] [ee_precision_pose_plan_node]: Final reached EE position: x=0.5916 y=-0.6670 z=0.2498 / target: x=0.5000 y=-0.7500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726337.445041696] [ee_precision_pose_plan_node]: Precision IK result: error=0.1236 m, solved=false
+[ee_precision_pose_plan_node-1] [WARN] [1782726337.445044718] [ee_precision_pose_plan_node]: IK did not reach tolerance 0.0300 m. Keeping result, but plan may be rejected.
+[ee_precision_pose_plan_node-1] [ERROR] [1782726337.445049799] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782726341.779962417] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.850 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726341.822240584] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6360 y=-0.6389 z=0.2179 / target: x=0.5000 y=-0.8500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726341.822283516] [ee_precision_pose_plan_node]: Precision IK result: error=0.2531 m, solved=false
+[ee_precision_pose_plan_node-1] [WARN] [1782726341.822286591] [ee_precision_pose_plan_node]: IK did not reach tolerance 0.0300 m. Keeping result, but plan may be rejected.
+[ee_precision_pose_plan_node-1] [ERROR] [1782726341.822291465] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782726345.812075483] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-1.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726345.845060833] [ee_precision_pose_plan_node]: Final reached EE position: x=0.6269 y=-0.6289 z=0.2895 / target: x=0.5000 y=-1.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726345.845095018] [ee_precision_pose_plan_node]: Precision IK result: error=0.3942 m, solved=false
+[ee_precision_pose_plan_node-1] [WARN] [1782726345.845097787] [ee_precision_pose_plan_node]: IK did not reach tolerance 0.0300 m. Keeping result, but plan may be rejected.
+[ee_precision_pose_plan_node-1] [ERROR] [1782726345.845101610] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.265752977] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.350 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.266321945] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4911 y=-0.3449 z=0.2601 / target: x=0.5000 y=-0.3500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.266335891] [ee_precision_pose_plan_node]: Precision IK result: error=0.0144 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.266419493] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.267178374] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.301148259] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.301445961] [move_group_interface]: time taken to generate plan: 0.0279703 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.301469808] [ee_precision_pose_plan_node]: Trajectory validation passed. points=70
+[ee_precision_pose_plan_node-1] [INFO] [1782726353.301564731] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726353.301577885] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.290290374] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.450 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.290946790] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4960 y=-0.4469 z=0.2558 / target: x=0.5000 y=-0.4500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.290960067] [ee_precision_pose_plan_node]: Precision IK result: error=0.0077 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.291046396] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.291412887] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.321976674] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.322713326] [move_group_interface]: time taken to generate plan: 0.0179 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.322764885] [ee_precision_pose_plan_node]: Trajectory validation passed. points=80
+[ee_precision_pose_plan_node-1] [INFO] [1782726357.322849103] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726357.322868637] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.336522082] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=-0.350 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.337046938] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4911 y=-0.3449 z=0.2601 / target: x=0.5000 y=-0.3500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.337060584] [ee_precision_pose_plan_node]: Precision IK result: error=0.0144 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.337143204] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.337901364] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.352917253] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.353037618] [move_group_interface]: time taken to generate plan: 0.0092817 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.353068145] [ee_precision_pose_plan_node]: Trajectory validation passed. points=70
+[ee_precision_pose_plan_node-1] [INFO] [1782726363.353159486] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726363.353171643] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.816232852] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.350 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.816854084] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4911 y=0.3449 z=0.2602 / target: x=0.5000 y=0.3500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.816872727] [ee_precision_pose_plan_node]: Precision IK result: error=0.0144 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.816961001] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.818370043] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.842016814] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.842459325] [move_group_interface]: time taken to generate plan: 0.0192804 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.842548677] [ee_precision_pose_plan_node]: Trajectory validation passed. points=70
+[ee_precision_pose_plan_node-1] [INFO] [1782726369.842694286] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726369.842713235] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.859212344] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.450 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.859851281] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4960 y=0.4469 z=0.2558 / target: x=0.5000 y=0.4500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.859864497] [ee_precision_pose_plan_node]: Precision IK result: error=0.0077 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.859949715] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.860497448] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.892273919] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.892655521] [move_group_interface]: time taken to generate plan: 0.0181578 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.892708283] [ee_precision_pose_plan_node]: Trajectory validation passed. points=80
+[ee_precision_pose_plan_node-1] [INFO] [1782726373.892802945] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726373.892816182] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.956019947] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.650 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.957193336] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4917 y=0.6404 z=0.2658 / target: x=0.5000 y=0.6500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.957218767] [ee_precision_pose_plan_node]: Precision IK result: error=0.0203 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.957325136] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.957666125] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.991675550] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.992320542] [move_group_interface]: time taken to generate plan: 0.0197982 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.992401437] [ee_precision_pose_plan_node]: Trajectory validation passed. points=103
+[ee_precision_pose_plan_node-1] [INFO] [1782726381.992584542] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726381.992622441] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726385.995071683] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=0.750 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726385.996305450] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4939 y=0.7414 z=0.2488 / target: x=0.5000 y=0.7500 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726385.996330705] [ee_precision_pose_plan_node]: Precision IK result: error=0.0106 m, solved=true
+[ee_precision_pose_plan_node-1] [INFO] [1782726385.996440897] [move_group_interface]: MoveGroup action client/server ready
+[ee_precision_pose_plan_node-1] [INFO] [1782726385.997275159] [move_group_interface]: Planning request accepted
+[ee_precision_pose_plan_node-1] [INFO] [1782726386.036153709] [move_group_interface]: Planning request complete!
+[ee_precision_pose_plan_node-1] [INFO] [1782726386.036929477] [move_group_interface]: time taken to generate plan: 0.0246377 seconds
+[ee_precision_pose_plan_node-1] [INFO] [1782726386.036978614] [ee_precision_pose_plan_node]: Trajectory validation passed. points=130
+[ee_precision_pose_plan_node-1] [INFO] [1782726386.037157786] [ee_precision_pose_plan_node]: Published planned trajectory to /display_planned_path.
+[ee_precision_pose_plan_node-1] [WARN] [1782726386.037188239] [ee_precision_pose_plan_node]: execute_plan=false. Plan displayed only. Robot/controller will not be commanded by this node.
+[ee_precision_pose_plan_node-1] [INFO] [1782726394.079787322] [ee_precision_pose_plan_node]: Received target point in frame [ARM_BASE_LINK]: x=0.500 y=1.000 z=0.250
+[ee_precision_pose_plan_node-1] [INFO] [1782726394.114383833] [ee_precision_pose_plan_node]: Final reached EE position: x=0.4048 y=0.8094 z=0.1691 / target: x=0.5000 y=1.0000 z=0.2500
+[ee_precision_pose_plan_node-1] [INFO] [1782726394.114418224] [ee_precision_pose_plan_node]: Precision IK result: error=0.2279 m, solved=false
+[ee_precision_pose_plan_node-1] [WARN] [1782726394.114420909] [ee_precision_pose_plan_node]: IK did not reach tolerance 0.0300 m. Keeping result, but plan may be rejected.
+[ee_precision_pose_plan_node-1] [ERROR] [1782726394.114425464] [ee_precision_pose_plan_node]: High-performance IK failed. No planning will be executed.

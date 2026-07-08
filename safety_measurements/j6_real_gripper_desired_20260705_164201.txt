@@ -1,0 +1,32 @@
+===== J6 REAL GRIPPER DESIRED SHAPE =====
+2026. 07. 05. (일) 16:42:01 KST
+
+===== raw JOINT6 can11 0x143 =====
+data: -21.445
+---
+
+===== /joint_states =====
+header:
+  stamp:
+    sec: 1783237323
+    nanosec: 381926915
+  frame_id: ''
+name:
+- JOINT1
+- JOINT2
+- JOINT3
+- JOINT4
+- JOINT5
+- JOINT6
+- JOINT7
+position:
+- -4.8539545752702455e-06
+- 0.3853735469749531
+- -0.3772626140909531
+- -0.00017453292519946023
+- -0.0001745329251994331
+- -0.7964516149238225
+- 10.375311932149039
+velocity: []
+effort: []
+---

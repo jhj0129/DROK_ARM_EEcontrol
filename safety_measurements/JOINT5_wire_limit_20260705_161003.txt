@@ -1,0 +1,11 @@
+===== WIRE LIMIT SUMMARY =====
+joint: JOINT5
+topic: /motor_angles/can11_motor_0x142
+samples: 2102
+min_raw_deg: -91.810000000000
+max_raw_deg: 80.980000000000
+range_deg: 172.790000000000
+
+Recommended conservative limit:
+lower_raw_deg = min_raw_deg + 3.0 deg margin
+upper_raw_deg = max_raw_deg - 3.0 deg margin
